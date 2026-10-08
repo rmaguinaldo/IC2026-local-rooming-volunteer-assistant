@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IC 2026 - Rooming Volunteer Smart Assistant</title>
+  <!-- Suppress dev CDN console warning -->
+  <script>
+    const _origWarn = console.warn;
+    console.warn = function(...args) {
+      if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+      _origWarn.apply(console, args);
+    };
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
@@ -104,7 +112,7 @@
             <span class="font-semibold text-white">Rule #1: Always Consult Keyman</span>
             <span>Do not independently alter rooms</span>
           </div>
-          <button onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none">
+          <button onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none" aria-label="Toggle Navigation Menu">
             <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
           </button>
         </div>
@@ -144,16 +152,18 @@
             <i class="fa-solid fa-robot"></i>
           </div>
           <div>
-            <h2 class="text-sm font-bold text-slate-800">Rooming Desk AI Assistant</h2>
+            <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+              Rooming Desk AI Assistant
+              <span class="text-[10px] font-normal px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+                Ready
+              </span>
+            </h2>
             <p class="text-xs text-slate-500">Trained on IC 2026 Rooming Handbook, Century Park & Networld Contracts</p>
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-800">
-            <i class="fa-solid fa-shield-check mr-1"></i> Verified Policy
-          </span>
-          <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-600 px-2 py-1 rounded transition" title="Clear Chat">
-            <i class="fa-solid fa-arrow-rotate-left mr-1"></i> Reset
+          <button onclick="clearChat()" class="text-xs text-slate-500 hover:text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-100 transition" title="Clear Chat">
+            <i class="fa-solid fa-arrow-rotate-left mr-1"></i> Reset Chat
           </button>
         </div>
       </div>
@@ -1041,6 +1051,43 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
 8. Confidential Info Request: Politely decline to provide room numbers or hotel assignments. Protect privacy. Refer to Keyman.
 `;
 
+    // Local / Offline rule matching fallback dictionary
+    function findOfflineAnswer(query) {
+      const q = query.toLowerCase();
+
+      if (q.includes('balcony')) {
+        return "**Century Park Balcony Policy:**\nOpening balcony doors is strictly prohibited for safety and security. Any attempt to open the balcony door carries a strict fine of **Php 20,000.00 net** per incident (Contract Section IX).";
+      }
+      if (q.includes('smoking') || q.includes('smoke')) {
+        return "**Smoking Policy:**\nSmoking is strictly prohibited inside the hotel premises (including guestrooms and corridors). At Century Park Hotel, a **Php 10,000.00 net** fee is charged per incident. At Networld Hotel, all blocked rooms are non-smoking.";
+      }
+      if (q.includes('century park') && (q.includes('rate') || q.includes('price') || q.includes('cost') || q.includes('breakfast'))) {
+        return "**Century Park Hotel Rates (Nett):**\n• **Superior Room:** Php 4,200.00 (Single/Twin) | Php 5,500.00 (Triple)\n• **Deluxe Room:** Php 5,200.00 (Single/Twin) | Php 6,500.00 (Triple)\n• Additional adult: Php 1,300.00\n• **Inclusions:** Buffet breakfast, daily replenished mineral water, coffee/tea facilities.\n• **Check-in:** 2:00 PM | **Check-out:** 12:00 NN.";
+      }
+      if (q.includes('networld') && (q.includes('rate') || q.includes('shuttle') || q.includes('smx') || q.includes('price'))) {
+        return "**Networld Hotel Details & Rates (Net):**\n• **Standard:** Php 2,300.00 (1 person)\n• **Deluxe:** Php 2,800.00 (Queen, 2 persons)\n• **Executive:** Php 3,600.00 (2 Twin Beds, 2 persons)\n• **Super Deluxe:** Php 3,700.00 (King, 2 persons)\n• **Royal:** Php 3,800.00 (2 Twin Beds, 2 persons)\n• Extra bed: Php 800.00 with buffet breakfast.\n• **Shuttle:** Free daily drop-off to SMX Convention Center / World Trade Center (prior reservation required).\n• **Check-in:** 3:00 PM | **Check-out:** 12:00 NN (Housekeeping cleaning until 11:00 AM).";
+      }
+      if (q.includes('missing') || (q.includes('cannot find') && q.includes('reservation'))) {
+        return "**Scenario 1: Missing Reservation Protocol:**\n1. **Listen carefully** to the delegate and remain calm and reassuring.\n2. Gather reservation details (guest name, confirmation number, arrival date).\n3. **Inform your Keyman (Hotel Coordinator)** immediately.\n4. **What NOT to do:** Do NOT promise a room immediately, do NOT make a new booking independently, and do NOT argue with the hotel front office.";
+      }
+      if (q.includes('change') && (q.includes('room') || q.includes('bed') || q.includes('upgrade'))) {
+        return "**Room Change Request (Scenario 5 & Guidelines):**\n• Rooming Volunteers must **NEVER independently change room assignments or bed setups**.\n• Respectfully ask the delegate for their reason, note the details, and **refer the matter to your Keyman**.\n• The Keyman will check with the Hotel Coordinator and hotel front office if an approved adjustment is possible.";
+      }
+      if (q.includes('confidential') || q.includes('privacy') || q.includes('number') || q.includes('who is staying')) {
+        return "**Confidentiality Safeguard (Scenario 8):**\n• Politely decline to share a delegate's room number, hotel assignment, or personal contact info.\n• Never show room lists to unauthorized persons.\n• Refer all inquiries to the **Keyman** to protect delegate privacy and security.";
+      }
+      if (q.includes('overseer') || q.includes('chain') || q.includes('report') || q.includes('who should i')) {
+        return "**Line of Communication & Oversight:**\n1. **General Volunteer** (Hotel Info Desk)\n2. **Keyman** (Hotel Coordinator)\n3. **Assistant Overseer** (Elberg Pagad, Joseph Magpile, Ryan Torio, Mark Bognot, Hezron Elcano)\n4. **Rooming Overseer** (Jude Pambid)\nAlways report your concerns first to your **Keyman**!";
+      }
+      if (q.includes('tired') || q.includes('frustrated') || q.includes('upset')) {
+        return "**Tired & Frustrated Delegate (Scenario 3):**\n• Listen patiently and speak with Christian kindness and empathy (Colossians 3:12).\n• Acknowledge their concern and reassure them that assistance is being coordinated.\n• Inform your **Keyman** promptly. Never argue or make unverified promises.";
+      }
+      if (q.includes('early check') || q.includes('late check')) {
+        return "**Early Check-in / Late Checkout Policies:**\n• Volunteers must **never promise** early check-in or late checkout.\n• **Century Park Hotel:** Check-in 2:00 PM, Check-out 12:00 NN. Early check-in before 12:00 NN is charged preceding day. Late check-out after 4:00 PM is charged whole additional day.\n• **Networld Hotel:** Check-in 3:00 PM, Check-out 12:00 NN. 12 NN-6 PM is half-day charge; after 6 PM is whole day charge.\n• Always refer delegate requests directly to the hotel front desk and your **Keyman**.";
+      }
+      return null;
+    }
+
     // Tab Navigation Logic
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -1112,7 +1159,7 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
       `;
     }
 
-    // Chat handling and Gemini API Integration
+    // Chat handling and Assistant Processing
     async function handleChatSubmit(event) {
       if (event) event.preventDefault();
       const input = document.getElementById('chatInput');
@@ -1130,7 +1177,19 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
         appendAssistantMessage(responseText);
       } catch (err) {
         removeTypingIndicator(typingId);
-        appendAssistantMessage("I apologize, but I encountered an issue connecting to the knowledge assistant. Remember the cardinal rule: In all doubts or discrepancies, immediately consult your **Keyman** or Hotel Coordinator!");
+        
+        // Serve verified response from local handbook knowledge base
+        const offlineMatch = findOfflineAnswer(userText);
+        if (offlineMatch) {
+          appendAssistantMessage(offlineMatch);
+        } else {
+          appendAssistantMessage(
+            `**Rooming Volunteer Protocol:**\n\n` +
+            `• **First Step:** Please communicate directly with your **Keyman (Hotel Coordinator)** for direction on this situation.\n` +
+            `• **Cardinal Rule:** General volunteers must not make independent adjustments to rooms, bookings, or hotel arrangements.\n` +
+            `• You can also refer to the **8 Scenarios**, **Hotel Contracts**, and **Key Safeguards** tabs above for complete official guidance.`
+          );
+        }
       }
     }
 
@@ -1190,8 +1249,8 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
 
     // Call Gemini API with Exponential Backoff
     async function callGeminiAssistant(userPrompt) {
-      const apiKey = "AQ.Ab8RN6IwAEH_BSmgdfaEvAaXoCGN6sy4_ctNXdwiCXqL1_ucpA"; // Canvas runtime environment provides API key
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+      const apiKey = "AQ.Ab8RN6IwAEH_BSmgdfaEvAaXoCGN6sy4_ctNXdwiCXqL1_ucpA";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
 
       const systemInstruction = `
 You are the official IC 2026 Rooming Volunteer AI Assistant for the 2026 International Convention of Jehovah's Witnesses in Manila, Philippines.
@@ -1216,21 +1275,41 @@ GUIDANCE RULES:
         }
       };
 
-      const delays = [1000, 2000, 4000];
+      const requestHeaders = { 'Content-Type': 'application/json' };
+      if (apiKey) {
+        requestHeaders['x-goog-api-key'] = apiKey;
+      }
+
+      const delays = [1000, 2000];
       for (let attempt = 0; attempt <= delays.length; attempt++) {
         try {
           const response = await fetch(apiUrl, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: requestHeaders,
             body: JSON.stringify(payload)
           });
-          if (!response.ok) throw new Error("HTTP " + response.status);
+          
+          if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            const msg = errData.error?.message || `HTTP ${response.status}`;
+            
+            if (response.status === 401 || response.status === 403) {
+              const customErr = new Error(`Authentication failed (${response.status}): ${msg}`);
+              customErr.status = response.status;
+              throw customErr;
+            }
+            throw new Error(msg);
+          }
+          
           const data = await response.json();
           const candidate = data.candidates?.[0];
           if (candidate?.content?.parts?.[0]?.text) {
             return candidate.content.parts[0].text;
           }
         } catch (err) {
+          if (err.status === 401 || err.status === 403) {
+            throw err;
+          }
           if (attempt < delays.length) {
             await new Promise(r => setTimeout(r, delays[attempt]));
           } else {
@@ -1238,7 +1317,7 @@ GUIDANCE RULES:
           }
         }
       }
-      throw new Error("Unable to get response.");
+      throw new Error("Unable to complete request.");
     }
 
     // Simple markdown formatting helper
@@ -1249,7 +1328,6 @@ GUIDANCE RULES:
         .replace(/>/g, '&gt;')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        .replace(/\n\n/g, '<br><br>')
         .replace(/\n/g, '<br>')
         .replace(/• /g, '•&nbsp;');
     }
