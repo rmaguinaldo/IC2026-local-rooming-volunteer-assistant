@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IC 2026 - Rooming Volunteer Smart Assistant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+              800: '#1e3a8a',
+              900: '#172554',
+            },
+            accent: {
+              500: '#0284c7',
+              600: '#0369a1',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .chat-bubble-user {
+      border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+    }
+    .chat-bubble-assistant {
+      border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased h-screen flex flex-col overflow-hidden">
+
+  <header class="bg-brand-900 text-white shadow-md z-20 flex-shrink-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo and Title -->
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-400 flex items-center justify-center shadow-lg">
+            <i class="fa-solid fa-hotel text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs uppercase tracking-wider font-semibold text-blue-300 bg-blue-950/60 px-2 py-0.5 rounded border border-blue-800">IC 2026 Manila</span>
+              <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Volunteer Assistant
+              </span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
+              Rooming Department Guide & AI Desk
+            </h1>
+          </div>
+        </div>
+
+        <!-- Quick Navigation -->
+        <nav class="hidden md:flex space-x-1" id="navDesktop">
+          <button onclick="switchTab('chat')" id="nav-chat" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium bg-brand-800 text-white flex items-center gap-2 transition">
+            <i class="fa-solid fa-comments"></i> AI Ask Desk
+          </button>
+          <button onclick="switchTab('scenarios')" id="nav-scenarios" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-brand-800/50 flex items-center gap-2 transition">
+            <i class="fa-solid fa-triangle-exclamation"></i> 8 Scenarios
+          </button>
+          <button onclick="switchTab('hotels')" id="nav-hotels" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-brand-800/50 flex items-center gap-2 transition">
+            <i class="fa-solid fa-building"></i> Hotel Contracts
+          </button>
+          <button onclick="switchTab('org')" id="nav-org" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-brand-800/50 flex items-center gap-2 transition">
+            <i class="fa-solid fa-sitemap"></i> Organization
+          </button>
+          <button onclick="switchTab('rules')" id="nav-rules" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-brand-800/50 flex items-center gap-2 transition">
+            <i class="fa-solid fa-shield-halved"></i> Key Safeguards
+          </button>
+          <button onclick="switchTab('quiz')" id="nav-quiz" class="tab-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-brand-800/50 flex items-center gap-2 transition">
+            <i class="fa-solid fa-circle-question"></i> Quiz Me
+          </button>
+        </nav>
+
+        <!-- Right Side Quick Info & Mobile Menu -->
+        <div class="flex items-center gap-2">
+          <div class="hidden lg:flex flex-col text-right text-xs text-blue-200">
+            <span class="font-semibold text-white">Rule #1: Always Consult Keyman</span>
+            <span>Do not independently alter rooms</span>
+          </div>
+          <button onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none">
+            <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Nav Drawer -->
+      <div id="mobileMenu" class="hidden md:hidden pb-3 pt-1 border-t border-brand-800 flex flex-wrap gap-1">
+        <button onclick="switchTab('chat')" class="px-3 py-1.5 rounded text-xs font-medium bg-brand-800 text-white w-full text-left flex items-center gap-2">
+          <i class="fa-solid fa-comments"></i> AI Ask Desk
+        </button>
+        <button onclick="switchTab('scenarios')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation"></i> 8 Scenarios Guide
+        </button>
+        <button onclick="switchTab('hotels')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
+          <i class="fa-solid fa-building"></i> Hotel Contracts (Century Park & Networld)
+        </button>
+        <button onclick="switchTab('org')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
+          <i class="fa-solid fa-sitemap"></i> Organization & Contacts
+        </button>
+        <button onclick="switchTab('rules')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved"></i> Always & Never Safeguards
+        </button>
+        <button onclick="switchTab('quiz')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
+          <i class="fa-solid fa-circle-question"></i> Volunteer Training Quiz
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 overflow-hidden relative max-w-7xl w-full mx-auto p-2 sm:p-4 md:p-6 flex flex-col">
+
+    <!-- ================= TAB 1: AI ASK DESK (Primary Interactive Assistant) ================= -->
+    <section id="tab-chat" class="tab-content flex-1 flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden h-full">
+      <div class="bg-gradient-to-r from-slate-50 to-blue-50/50 border-b border-slate-200 px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div>
+            <h2 class="text-sm font-bold text-slate-800">Rooming Desk AI Assistant</h2>
+            <p class="text-xs text-slate-500">Trained on IC 2026 Rooming Handbook, Century Park & Networld Contracts</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-800">
+            <i class="fa-solid fa-shield-check mr-1"></i> Verified Policy
+          </span>
+          <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-600 px-2 py-1 rounded transition" title="Clear Chat">
+            <i class="fa-solid fa-arrow-rotate-left mr-1"></i> Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat History -->
+      <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4 text-sm">
+        <!-- Initial Assistant Message -->
+        <div class="flex items-start space-x-3 max-w-3xl">
+          <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex-shrink-0 flex items-center justify-center text-xs font-bold shadow">
+            IC
+          </div>
+          <div class="bg-slate-100 text-slate-800 chat-bubble-assistant p-4 shadow-sm border border-slate-200">
+            <p class="font-semibold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>Warm greetings, Rooming Volunteer!</span>
+              <span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded font-normal">Col. 3:23, 24</span>
+            </p>
+            <p class="text-slate-700 leading-relaxed mb-3">
+              I am your dedicated <strong>IC 2026 Rooming Assistant</strong>. You can ask me how to handle situations at the front desk, check hotel room rates and policies for <strong>Century Park Hotel</strong> and <strong>Networld Hotel</strong>, check-in/out rules, and our official protocol.
+            </p>
+            <div class="text-xs font-medium text-slate-500 mb-2">Frequently Asked by Volunteers:</div>
+            <div class="flex flex-wrap gap-1.5">
+              <button onclick="quickPrompt('A delegate says the hotel cannot find their reservation. What should I do?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                🔍 Missing reservation
+              </button>
+              <button onclick="quickPrompt('What are the JW room rates and breakfast inclusion for Century Park Hotel?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                🏨 Century Park Rates & Breakfast
+              </button>
+              <button onclick="quickPrompt('Can I change a delegate\'s room assignment if they are unhappy with the twin bed?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                ⚠️ Can I change their room?
+              </button>
+              <button onclick="quickPrompt('What are Networld Hotel\'s contracted room rates, shuttle, and check-in/check-out times?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                🚗 Networld Hotel Details & Shuttle
+              </button>
+              <button onclick="quickPrompt('Someone is asking for a delegate\'s hotel room number. May I give it?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                🔒 Privacy & Room Inquiry
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="p-3 bg-white border-t border-slate-200 flex-shrink-0">
+        <form onsubmit="handleChatSubmit(event)" class="relative flex items-center">
+          <input
+            id="chatInput"
+            type="text"
+            placeholder="Ask anything (e.g., 'What if a delegate wants early check-in?' or 'Who is the Rooming Overseer?')..."
+            class="w-full pl-4 pr-24 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
+            autocomplete="off"
+          />
+          <button
+            type="submit"
+            id="chatSubmitBtn"
+            class="absolute right-1.5 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-1.5 shadow"
+          >
+            <span>Ask</span>
+            <i class="fa-solid fa-paper-plane text-xs"></i>
+          </button>
+        </form>
+        <div class="flex items-center justify-between mt-2 px-1 text-[11px] text-slate-400">
+          <span>Remember: <em>"Care for the person—not just the rooming concern."</em></span>
+          <span>Reporting line: Volunteer &rarr; Keyman &rarr; Asst. Overseer</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-scenarios" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs tracking-wider uppercase">
+          <i class="fa-solid fa-triangle-exclamation"></i> Module 5 Training
+        </div>
+        <h2 class="text-xl font-bold text-slate-800">8 Practical Front Desk Scenarios</h2>
+        <p class="text-sm text-slate-600 mt-1">
+          Exact operational guidance from the Rooming Volunteer Notebook on what to do and what NOT to do.
+        </p>
+      </div>
+
+      <!-- Scenarios Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <!-- Scenario 1 -->
+        <div class="p-4 rounded-xl border border-amber-200 bg-amber-50/40 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-amber-800 bg-amber-200/70 px-2 py-0.5 rounded">Scenario 1</span>
+            <i class="fa-solid fa-magnifying-glass text-amber-600"></i>
+          </div>
+          <h3 class="font-bold text-slate-800 text-sm">Missing Hotel Reservation</h3>
+          <p class="text-xs text-slate-600 italic mb-3">"A delegate arrives at the Rooming Desk and says the hotel cannot find their reservation."</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-emerald-900">
+              <strong class="text-emerald-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> What to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Listen carefully to delegate</li>
+                <li>Remain calm & reassuring</li>
+                <li>Gather rooming details</li>
+                <li>Inform your <strong>Keyman</strong></li>
+                <li>Wait for verification/direction</li>
+              </ul>
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-rose-200 text-rose-900">
+              <strong class="text-rose-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> What NOT to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Do NOT promise a room immediately</li>
+                <li>Do NOT make a new booking yourself</li>
+                <li>Do NOT argue with delegate or hotel</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="p-4 rounded-xl border border-blue-200 bg-blue-50/40 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-blue-800 bg-blue-200/70 px-2 py-0.5 rounded">Scenario 2</span>
+            <i class="fa-solid fa-bed text-blue-600"></i>
+          </div>
+          <h3 class="font-bold text-slate-800 text-sm">Incorrect Room Assignment</h3>
+          <p class="text-xs text-slate-600 italic mb-3">"A delegate reports that the room assigned does not match their confirmed arrangement."</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-emerald-900">
+              <strong class="text-emerald-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> What to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Verify the details provided</li>
+                <li>Record concern accurately</li>
+                <li>Inform <strong>Keyman</strong> / Hotel Coordinator</li>
+                <li>Assist while assignment is checked</li>
+                <li>Follow confirmed resolution</li>
+              </ul>
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-rose-200 text-rose-900">
+              <strong class="text-rose-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> What NOT to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Do NOT change assignment yourself</li>
+                <li>Do NOT give unverified info</li>
+                <li>Do NOT send delegate elsewhere without coordination</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 3 -->
+        <div class="p-4 rounded-xl border border-purple-200 bg-purple-50/40 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-purple-800 bg-purple-200/70 px-2 py-0.5 rounded">Scenario 3</span>
+            <i class="fa-solid fa-face-frown text-purple-600"></i>
+          </div>
+          <h3 class="font-bold text-slate-800 text-sm">Tired & Frustrated Delegate</h3>
+          <p class="text-xs text-slate-600 italic mb-3">"After a long trip, a delegate arrives tired and upset because of a lodging problem."</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-emerald-900">
+              <strong class="text-emerald-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> What to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Listen patiently</li>
+                <li>Speak calmly and kindly</li>
+                <li>Acknowledge the concern</li>
+                <li>Reassure assistance is being sought</li>
+                <li>Inform <strong>Keyman</strong> promptly</li>
+              </ul>
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-rose-200 text-rose-900">
+              <strong class="text-rose-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> What NOT to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Do NOT argue or be defensive</li>
+                <li>Do NOT dismiss their frustration</li>
+                <li>Do NOT make promises you cannot confirm</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 4 -->
+        <div class="p-4 rounded-xl border border-indigo-200 bg-indigo-50/40 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-indigo-800 bg-indigo-200/70 px-2 py-0.5 rounded">Scenario 4</span>
+            <i class="fa-solid fa-file-invoice text-indigo-600"></i>
+          </div>
+          <h3 class="font-bold text-slate-800 text-sm">Hotel Reports a Rooming Discrepancy</h3>
+          <p class="text-xs text-slate-600 italic mb-3">"Hotel personnel inform you that their room assignment list does not match Rooming Department info."</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-emerald-900">
+              <strong class="text-emerald-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> What to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Listen carefully to hotel staff</li>
+                <li>Note specific discrepancy</li>
+                <li>Inform <strong>Keyman</strong> / Hotel Coordinator</li>
+                <li>Wait while records are verified</li>
+                <li>Follow confirmed arrangement</li>
+              </ul>
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-rose-200 text-rose-900">
+              <strong class="text-rose-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> What NOT to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Do NOT decide which list is right</li>
+                <li>Do NOT change assignments yourself</li>
+                <li>Do NOT negotiate independently with hotel</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 5 -->
+        <div class="p-4 rounded-xl border border-teal-200 bg-teal-50/40 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-teal-800 bg-teal-200/70 px-2 py-0.5 rounded">Scenario 5</span>
+            <i class="fa-solid fa-right-left text-teal-600"></i>
+          </div>
+          <h3 class="font-bold text-slate-800 text-sm">Delegate Requests a Room Change</h3>
+          <p class="text-xs text-slate-600 italic mb-3">"A delegate asks to transfer to another room or hotel because of personal preference."</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-emerald-900">
+              <strong class="text-emerald-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> What to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Listen respectfully</li>
+                <li>Ask for the reason for change</li>
+                <li>Inform <strong>Keyman</strong></li>
+                <li>Verify if approved adjustment exists</li>
+                <li>Follow given direction</li>
+              </ul>
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-rose-200 text-rose-900">
+              <strong class="text-rose-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> What NOT to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Do NOT promise room changes</li>
+                <li>Do NOT contact other hotels alone</li>
+                <li>Do NOT alter room records yourself</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 6 -->
+        <div class="p-4 rounded-xl border border-rose-200 bg-rose-50/40 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-rose-800 bg-rose-200/70 px-2 py-0.5 rounded">Scenario 6</span>
+            <i class="fa-solid fa-triangle-exclamation text-rose-600"></i>
+          </div>
+          <h3 class="font-bold text-slate-800 text-sm">Urgent Lodging Concern (Safety)</h3>
+          <p class="text-xs text-slate-600 italic mb-3">"A delegate reports a serious concern with lodging affecting safety or habitability."</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-emerald-900">
+              <strong class="text-emerald-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> What to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Take concern seriously</li>
+                <li>Gather essential details</li>
+                <li>Inform <strong>Keyman immediately</strong></li>
+                <li>Coordinate with Hotel Coordinator</li>
+                <li>Stay available until referred</li>
+              </ul>
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-rose-200 text-rose-900">
+              <strong class="text-rose-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> What NOT to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Do NOT minimize the concern</li>
+                <li>Do NOT attempt major fixes alone</li>
+                <li>Do NOT delay reporting urgent issues</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 7 -->
+        <div class="p-4 rounded-xl border border-cyan-200 bg-cyan-50/40 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-cyan-800 bg-cyan-200/70 px-2 py-0.5 rounded">Scenario 7</span>
+            <i class="fa-solid fa-person-walking-luggage text-cyan-600"></i>
+          </div>
+          <h3 class="font-bold text-slate-800 text-sm">Last-Minute Accommodation Need</h3>
+          <p class="text-xs text-slate-600 italic mb-3">"A delegate arrives without confirmed lodging and asks the Rooming Department for assistance."</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-emerald-900">
+              <strong class="text-emerald-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> What to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Welcome the delegate calmly</li>
+                <li>Gather necessary details</li>
+                <li>Inform your <strong>Keyman</strong></li>
+                <li>Follow established rooming process</li>
+                <li>Provide only confirmed info</li>
+              </ul>
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-rose-200 text-rose-900">
+              <strong class="text-rose-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> What NOT to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Do NOT guarantee accommodation</li>
+                <li>Do NOT arrange lodging independently</li>
+                <li>Do NOT send them to hotels without direction</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scenario 8 -->
+        <div class="p-4 rounded-xl border border-red-200 bg-red-50/40 hover:shadow-md transition">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-red-800 bg-red-200/70 px-2 py-0.5 rounded">Scenario 8</span>
+            <i class="fa-solid fa-lock text-red-600"></i>
+          </div>
+          <h3 class="font-bold text-slate-800 text-sm">Confidential Rooming Information</h3>
+          <p class="text-xs text-slate-600 italic mb-3">"Someone asks you for another delegate's hotel, room number, or accommodation details."</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div class="bg-white p-2.5 rounded-lg border border-emerald-200 text-emerald-900">
+              <strong class="text-emerald-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> What to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Protect delegate privacy</li>
+                <li>Politely decline giving private details</li>
+                <li>Refer request to <strong>Keyman</strong></li>
+                <li>Keep records physical & secure</li>
+              </ul>
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-rose-200 text-rose-900">
+              <strong class="text-rose-700 block mb-1 flex items-center gap-1"><i class="fa-solid fa-circle-xmark"></i> What NOT to Do:</strong>
+              <ul class="list-disc list-inside space-y-1">
+                <li>Do NOT disclose room numbers casually</li>
+                <li>Do NOT show room lists to anyone</li>
+                <li>Do NOT discuss room details with peers</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="tab-hotels" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
+      <div class="border-b border-slate-200 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs tracking-wider uppercase">
+            <i class="fa-solid fa-file-contract"></i> Official Signed Contracts
+          </div>
+          <h2 class="text-xl font-bold text-slate-800">Hotel Accommodation Agreements</h2>
+          <p class="text-sm text-slate-600">Rates, cancellation rules, check-in schedules, and special terms for IC 2026.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="showHotelCard('century')" id="btn-show-century" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white shadow">Century Park Hotel</button>
+          <button onclick="showHotelCard('networld')" id="btn-show-networld" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">Networld Hotel</button>
+        </div>
+      </div>
+
+      <!-- Century Park Hotel Details -->
+      <div id="card-century" class="space-y-6">
+        <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white p-5 rounded-2xl shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-semibold uppercase text-blue-300 tracking-wide">Maranaw Hotels & Resort Corp.</div>
+            <h3 class="text-xl font-bold">Century Park Hotel (Malate, Manila)</h3>
+            <p class="text-xs text-blue-100 mt-1">
+              <i class="fa-solid fa-location-dot mr-1"></i> 599 P. Ocampo St., Malate, Manila | <i class="fa-solid fa-phone ml-2 mr-1"></i> (632) 8528-8888
+            </p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-xs p-3 rounded-xl border border-white/20 text-center">
+            <div class="text-xs text-blue-200 font-medium">Blocked Rooms</div>
+            <div class="text-2xl font-black text-white">250 <span class="text-xs font-normal">rooms/night</span></div>
+            <div class="text-[11px] text-blue-200">Oct 25 – Nov 3, 2026</div>
+          </div>
+        </div>
+
+        <!-- Rates Table -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-2xs">
+          <table class="min-w-full text-xs text-left">
+            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3 px-4">Room Category</th>
+                <th class="py-3 px-4">Single / Twin</th>
+                <th class="py-3 px-4">Triple Sharing</th>
+                <th class="py-3 px-4">Rooms Blocked</th>
+                <th class="py-3 px-4">Inclusions & Amenities</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white text-slate-700">
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Superior Room</td>
+                <td class="py-3 px-4 font-bold text-blue-700">Php 4,200.00 nett</td>
+                <td class="py-3 px-4">Php 5,500.00 nett</td>
+                <td class="py-3 px-4">200 Rooms</td>
+                <td class="py-3 px-4 text-slate-600">Breakfast included, replenished water daily, coffee/tea</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Deluxe Room</td>
+                <td class="py-3 px-4 font-bold text-blue-700">Php 5,200.00 nett</td>
+                <td class="py-3 px-4">Php 6,500.00 nett</td>
+                <td class="py-3 px-4">50 Rooms</td>
+                <td class="py-3 px-4 text-slate-600">Breakfast included, replenished water daily, coffee/tea</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Key Policy Points -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-regular fa-clock text-blue-600"></i> Check-in / Check-out</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Check-in:</strong> 2:00 PM</li>
+              <li><strong>Check-out:</strong> 12:00 NN</li>
+              <li><strong>Early check-in:</strong> Before 12:00 NN considered preceding day charge.</li>
+              <li><strong>Late check-out:</strong> After 4:00 PM considered additional whole day.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-credit-card text-blue-600"></i> Payment & Guarantee</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Guarantee:</strong> 1-night deposit required to confirm.</li>
+              <li><strong>Balance:</strong> Settled upon check-in directly by guest.</li>
+              <li><strong>Method:</strong> Cash, bank transfer, GCash, PayPal link.</li>
+              <li><strong>Incidental deposit:</strong> Waived if no signing privileges requested.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Strict Fines & Rules</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Smoking:</strong> Strictly prohibited indoors. <span class="text-rose-600 font-bold">Php 10,000 fine</span> per incident.</li>
+              <li><strong>Balcony doors:</strong> Strictly sealed/locked for safety. Opening door = <span class="text-rose-600 font-bold">Php 20,000 fine</span>.</li>
+              <li><strong>Children:</strong> 0–12 years stay free (family plan).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
+          <i class="fa-solid fa-circle-info text-amber-600 mt-0.5"></i>
+          <div>
+            <strong>Cancellation Policy (Century Park):</strong> 14+ days prior = full refund of 1-night deposit. 7 days prior = 50% fee. Within 6 days = non-refundable. Exception: Medical emergencies with documented proof (per contract clause VI / CO-81).
+          </div>
+        </div>
+      </div>
+
+      <!-- Networld Hotel Details -->
+      <div id="card-networld" class="space-y-6 hidden">
+        <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-5 rounded-2xl shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-semibold uppercase text-emerald-400 tracking-wide">Jipang Group of Companies</div>
+            <h3 class="text-xl font-bold">Networld Hotel Spa and Casino (Pasay City)</h3>
+            <p class="text-xs text-slate-300 mt-1">
+              <i class="fa-solid fa-location-dot mr-1"></i> Roxas Blvd. cor. Sen. Gil Puyat Ave., Pasay City | <i class="fa-solid fa-phone ml-2 mr-1"></i> (632) 536-7777 loc 120
+            </p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-xs p-3 rounded-xl border border-white/20 text-center">
+            <div class="text-xs text-slate-300 font-medium">Blocked Rooms</div>
+            <div class="text-2xl font-black text-white">73 <span class="text-xs font-normal">rooms/night</span></div>
+            <div class="text-[11px] text-slate-300">Oct 25 – Nov 4, 2026</div>
+          </div>
+        </div>
+
+        <!-- Networld Rates Table -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-2xs">
+          <table class="min-w-full text-xs text-left">
+            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3 px-4">Room Type</th>
+                <th class="py-3 px-4">Bed Type</th>
+                <th class="py-3 px-4">Special Selling Rate</th>
+                <th class="py-3 px-4">Occupancy</th>
+                <th class="py-3 px-4">Inclusions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white text-slate-700">
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Standard</td>
+                <td class="py-3 px-4">Single Size Bed</td>
+                <td class="py-3 px-4 font-bold text-emerald-700">Php 2,300.00 net</td>
+                <td class="py-3 px-4">Good for 1 person</td>
+                <td class="py-3 px-4 text-slate-600">Daily buffet breakfast, welcome drink, bottled water</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Deluxe</td>
+                <td class="py-3 px-4">Queen Size Bed</td>
+                <td class="py-3 px-4 font-bold text-emerald-700">Php 2,800.00 net</td>
+                <td class="py-3 px-4">Good for 2 persons</td>
+                <td class="py-3 px-4 text-slate-600">Buffet breakfast for 2, free internet</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Executive</td>
+                <td class="py-3 px-4">2 Twin Beds</td>
+                <td class="py-3 px-4 font-bold text-emerald-700">Php 3,600.00 net</td>
+                <td class="py-3 px-4">Good for 2 persons</td>
+                <td class="py-3 px-4 text-slate-600">Buffet breakfast for 2, free internet</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Super Deluxe</td>
+                <td class="py-3 px-4">King Size Bed</td>
+                <td class="py-3 px-4 font-bold text-emerald-700">Php 3,700.00 net</td>
+                <td class="py-3 px-4">Good for 2 persons</td>
+                <td class="py-3 px-4 text-slate-600">Buffet breakfast for 2, free internet</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Royal</td>
+                <td class="py-3 px-4">2 Twin Beds</td>
+                <td class="py-3 px-4 font-bold text-emerald-700">Php 3,800.00 net</td>
+                <td class="py-3 px-4">Good for 2 persons</td>
+                <td class="py-3 px-4 text-slate-600">Buffet breakfast for 2, free internet</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Networld Policies -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-regular fa-clock text-emerald-600"></i> Check-in / Out & Cleaning</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Check-in:</strong> 3:00 PM</li>
+              <li><strong>Check-out:</strong> 12:00 NN</li>
+              <li><strong>Cleaning time:</strong> Room cleaning accommodated until 11 AM (guests must vacate before 11 AM).</li>
+              <li><strong>Late check-out:</strong> 12 NN-6 PM is half-day charge; after 6 PM is full day.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-van-shuttle text-emerald-600"></i> Drop-off & Shuttles</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Daily SMX Drop-off:</strong> Free drop-off to SMX Convention Center / World Trade Center (prior reservation required).</li>
+              <li><strong>Airport Transfer:</strong> Available based on hotel schedule.</li>
+              <li><strong>Free Parking:</strong> Yes, complimentary.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-users text-emerald-600"></i> Extra Beds & Kids</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Extra Bed:</strong> Php 800.00 net with complimentary buffet breakfast.</li>
+              <li><strong>Children 12 & below:</strong> Free in room with existing bed, half price for buffet breakfast.</li>
+              <li><strong>Children 7 & below:</strong> Extra bed free of charge.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-org" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs tracking-wider uppercase">
+          <i class="fa-solid fa-sitemap"></i> Organization Structure
+        </div>
+        <h2 class="text-xl font-bold text-slate-800">Convention Organization & Overseers</h2>
+        <p class="text-sm text-slate-600">Official leadership chart and the Rooming Department chain of communication.</p>
+      </div>
+
+      <!-- Chain of Oversight Graphic -->
+      <div class="bg-blue-50/70 p-4 rounded-xl border border-blue-200">
+        <h3 class="text-xs font-bold text-blue-900 uppercase tracking-wider mb-2">Rooming Line of Communication (Strict Protocol)</h3>
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+          <div class="bg-white p-3 rounded-lg border border-blue-200 text-center flex-1 shadow-2xs">
+            <div class="font-bold text-blue-900">General Volunteer</div>
+            <div class="text-[11px] text-slate-500">Hotel Info Desk (2 per shift)</div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-blue-400 rotate-90 sm:rotate-0"></i>
+          <div class="bg-blue-600 text-white p-3 rounded-lg text-center flex-1 shadow-xs">
+            <div class="font-bold">Keyman</div>
+            <div class="text-[11px] text-blue-100">Hotel Coordinator</div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-blue-400 rotate-90 sm:rotate-0"></i>
+          <div class="bg-white p-3 rounded-lg border border-blue-200 text-center flex-1 shadow-2xs">
+            <div class="font-bold text-blue-900">Assistant Overseer</div>
+            <div class="text-[11px] text-slate-500">Supervises Hotel Group</div>
+          </div>
+          <i class="fa-solid fa-arrow-right text-blue-400 rotate-90 sm:rotate-0"></i>
+          <div class="bg-slate-900 text-white p-3 rounded-lg text-center flex-1 shadow-xs">
+            <div class="font-bold">Rooming Overseer</div>
+            <div class="text-[11px] text-slate-300">Overall Dept. Oversight</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Overseers from Document -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <!-- Branch & Convention Committee -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-3">
+          <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+            <i class="fa-solid fa-landmark text-blue-600"></i> Convention Committee & Branch
+          </h4>
+          <ul class="space-y-2 text-slate-700">
+            <li class="flex justify-between border-b border-slate-200 pb-1.5">
+              <span class="font-medium">Branch Committee Contact (BCC):</span>
+              <span class="font-semibold text-slate-900">Alexis Yambao</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-200 pb-1.5">
+              <span class="font-medium">International Convention Coordinator (ICC):</span>
+              <span class="font-semibold text-slate-900">Wilson Uy</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-200 pb-1.5">
+              <span class="font-medium">Assistant ICC (ICCa):</span>
+              <span class="font-semibold text-slate-900">Jeremy San Jose</span>
+            </li>
+            <li class="flex justify-between border-b border-slate-200 pb-1.5">
+              <span class="font-medium">Convention Committee Coordinator:</span>
+              <span class="font-semibold text-slate-900">Angelito Co Jr.</span>
+            </li>
+            <li class="flex justify-between">
+              <span class="font-medium">Convention Committee Asst. Coordinators:</span>
+              <span class="font-semibold text-slate-900">Fernand "Benjie" Dizon / Angelo Capulla</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Rooming Department Specific -->
+        <div class="p-4 rounded-xl border border-blue-200 bg-blue-50/40 space-y-3">
+          <h4 class="font-bold text-blue-900 text-sm flex items-center gap-2">
+            <i class="fa-solid fa-door-open text-blue-600"></i> Rooming Department Leadership
+          </h4>
+          <ul class="space-y-2 text-slate-700">
+            <li class="flex justify-between border-b border-blue-100 pb-1.5">
+              <span class="font-medium">Rooming Overseer:</span>
+              <span class="font-semibold text-blue-950">Jude Pambid</span>
+            </li>
+            <li class="flex justify-between border-b border-blue-100 pb-1.5">
+              <span class="font-medium">Rooming Assistant Overseers:</span>
+              <span class="font-semibold text-blue-950 text-right">Elberg Pagad, Joseph Magpile,<br>Ryan Torio, Mark Bognot, Hezron Elcano</span>
+            </li>
+            <li class="flex justify-between border-b border-blue-100 pb-1.5">
+              <span class="font-medium">Rooming / Hospitality Dept Overseer:</span>
+              <span class="font-semibold text-blue-950">Rey Barin</span>
+            </li>
+            <li class="flex justify-between border-b border-blue-100 pb-1.5">
+              <span class="font-medium">Hospitality Dept Asst. Overseer:</span>
+              <span class="font-semibold text-blue-950">Bonn Gavia</span>
+            </li>
+            <li class="flex justify-between">
+              <span class="font-medium">Contract Negotiator / Representative:</span>
+              <span class="font-semibold text-blue-950">Ralph L. Balmaceda</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-rules" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs tracking-wider uppercase">
+          <i class="fa-solid fa-shield-halved"></i> Modules 3 & 4
+        </div>
+        <h2 class="text-xl font-bold text-slate-800">Key Safeguards & Christian Conduct</h2>
+        <p class="text-sm text-slate-600">What every Rooming Volunteer MUST ALWAYS and NEVER do.</p>
+      </div>
+
+      <!-- ALWAYS vs NEVER Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- ALWAYS Card -->
+        <div class="border-2 border-emerald-300 rounded-2xl p-5 bg-emerald-50/50 shadow-xs">
+          <div class="flex items-center gap-2 text-emerald-800 font-bold text-base mb-3">
+            <div class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            ALWAYS
+          </div>
+          <ul class="space-y-2.5 text-xs text-slate-700">
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+              <span><strong>Follow approved Rooming procedures</strong> and instructions from your Keyman.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+              <span><strong>Give only verified and accurate information</strong>; verify with Keyman when unsure.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+              <span><strong>Stay within your assigned responsibilities</strong>; you are support, not decision-makers.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+              <span><strong>Protect personal & rooming information</strong> (Scenario 8). Keep lists away from public eyes.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+              <span><strong>Follow your assigned line of oversight</strong> (Volunteer &rarr; Keyman &rarr; Asst. Overseer).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+              <span><strong>Watch for safety hazards</strong> (overcrowding, trip hazards, balcony tampering).</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-check text-emerald-600 mt-0.5"></i>
+              <span><strong>Show Christian kindness & mildness</strong> even when delegates are stressed (Colossians 3:12).</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- NEVER Card -->
+        <div class="border-2 border-rose-300 rounded-2xl p-5 bg-rose-50/50 shadow-xs">
+          <div class="flex items-center gap-2 text-rose-800 font-bold text-base mb-3">
+            <div class="w-7 h-7 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs">
+              <i class="fa-solid fa-xmark"></i>
+            </div>
+            NEVER
+          </div>
+          <ul class="space-y-2.5 text-xs text-slate-700">
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+              <span><strong>NEVER change a room assignment on your own</strong> under any circumstance.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+              <span><strong>NEVER promise early check-in, late checkout</strong>, room upgrades, or free beds.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+              <span><strong>NEVER commit the hotel or organization to fees</strong>, waivers, or financial adjustments.</span>
+            </li>
+            <li class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+              <span><strong>NEVER disclose confidential delegate information</strong> or show rooming sheets to third parties.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+              <span><strong>NEVER negotiate independently</strong> with hotel management or front office staff.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+              <span><strong>NEVER argue with delegates</strong> or hotel personnel.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Core Scriptures -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+        <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">Guiding Scriptural Principles</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+          <div class="bg-white p-3 rounded-lg border border-slate-200">
+            <span class="font-bold text-blue-700 block mb-1">1 Peter 4:9</span>
+            <p class="text-slate-600 italic">"Be hospitable to one another without grumbling."</p>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-slate-200">
+            <span class="font-bold text-blue-700 block mb-1">Colossians 3:12</span>
+            <p class="text-slate-600 italic">"Clothe yourselves with compassion, kindness, humility, mildness, and patience."</p>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-slate-200">
+            <span class="font-bold text-blue-700 block mb-1">Proverbs 11:2</span>
+            <p class="text-slate-600 italic">"Wisdom is with the modest ones."</p>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-slate-200">
+            <span class="font-bold text-blue-700 block mb-1">1 Corinthians 14:40</span>
+            <p class="text-slate-600 italic">"Let all things take place decently and by arrangement."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-quiz" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
+      <div class="border-b border-slate-200 pb-4">
+        <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs tracking-wider uppercase">
+          <i class="fa-solid fa-graduation-cap"></i> Readiness Assessment
+        </div>
+        <h2 class="text-xl font-bold text-slate-800">Rooming Volunteer Knowledge Check</h2>
+        <p class="text-sm text-slate-600">Test your mastery of front-desk protocols, oversight channels, and hotel contracts.</p>
+      </div>
+
+      <div id="quizContainer" class="space-y-4">
+        <!-- Question 1 -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-3" id="q1-box">
+          <p class="text-sm font-semibold text-slate-900">1. A delegate is frustrated because their room has two twin beds instead of a king bed. What should you do?</p>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-slate-100">
+              <input type="radio" name="q1" value="wrong1" class="text-blue-600">
+              <span>Tell the hotel front desk immediately to change the room to a king room.</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-slate-100">
+              <input type="radio" name="q1" value="correct" class="text-blue-600">
+              <span>Listen politely, verify the concern, inform your Keyman, and wait for confirmed direction.</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-slate-100">
+              <input type="radio" name="q1" value="wrong2" class="text-blue-600">
+              <span>Tell the delegate that conventions are sacrifice and they should accept it without asking.</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-3" id="q2-box">
+          <p class="text-sm font-semibold text-slate-900">2. What is the fine for opening the balcony doors at Century Park Hotel?</p>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-slate-100">
+              <input type="radio" name="q2" value="wrong1" class="text-blue-600">
+              <span>Php 5,000 net</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-slate-100">
+              <input type="radio" name="q2" value="correct" class="text-blue-600">
+              <span>Php 20,000.00 net for safety and maintenance purposes</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-slate-100">
+              <input type="radio" name="q2" value="wrong2" class="text-blue-600">
+              <span>No fine, as long as it is closed at night</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-3" id="q3-box">
+          <p class="text-sm font-semibold text-slate-900">3. Who is the primary line of contact for a General Volunteer stationed at a hotel desk?</p>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-slate-100">
+              <input type="radio" name="q3" value="correct" class="text-blue-600">
+              <span>The Hotel Keyman (Hotel Coordinator)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-slate-100">
+              <input type="radio" name="q3" value="wrong1" class="text-blue-600">
+              <span>The Branch Committee Contact (BCC) directly</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:bg-slate-100">
+              <input type="radio" name="q3" value="wrong2" class="text-blue-600">
+              <span>The Hotel General Manager</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Quiz -->
+        <div class="flex items-center justify-between pt-2">
+          <button onclick="evaluateQuiz()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition shadow">
+            Check Answers
+          </button>
+          <div id="quizScoreResult" class="text-xs font-bold"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Knowledge Base context derived directly from uploaded notebook slides & hotel contracts
+    const NOTEBOOK_KNOWLEDGE = `
+YOU ARE THE IC 2026 ROOMING VOLUNTEER ASSISTANT.
+YOUR ROLE:
+Assist Rooming volunteers during the 2026 International Convention of Jehovah's Witnesses in Pasay City / Metro Manila, Philippines.
+All answers must strictly align with the IC 2026 Rooming Volunteer Training Notebook and official Hotel Contracts (Century Park Hotel & Networld Hotel).
+
+CORE DIRECTIVES & SPIRIT:
+- Care for the person, not just the rooming concern.
+- Maintain modesty, kindness, mildness, order, and Christian conduct (Col 3:12; 1 Pet 4:9; 1 Cor 14:40).
+- LINE OF REPORTING: General Volunteer -> Keyman / Hotel Coordinator -> Assistant Overseer -> Rooming Overseer.
+- Volunteers work WITH hotel personnel, not independently.
+- Volunteers NEVER independently change room assignments, bed configs, policies, charges, or promise early check-in / late checkout / upgrades.
+
+ORGANIZATIONAL LEADERSHIP:
+- Branch Committee Contact (BCC): Alexis Yambao
+- International Convention Coordinator (ICC): Wilson Uy
+- Assistant International Convention Coordinator (ICCa): Jeremy San Jose
+- Convention Committee Coordinator: Angelito Co Jr.
+- Convention Committee Assistant Coordinators: Fernand "Benjie" Dizon, Angelo Capulla
+- Rooming Overseer: Jude Pambid
+- Rooming Assistant Overseers: Elberg Pagad, Joseph Magpile, Ryan Torio, Mark Bognot, Hezron Elcano
+- Rooming / Hospitality Department Overseer: Rey Barin
+- Hospitality Dept Assistant Overseer: Bonn Gavia
+- Contract Representative / Negotiator: Ralph L. Balmaceda
+- Rooming Coordinators: Diomedes Arciaga Jr., Jonathan de Jesus
+- Meeting Planner: Stephen E. Zilavetz
+
+CENTURY PARK HOTEL CONTRACT:
+- Address: 599 P. Ocampo St., Malate, Manila. Phone: (632) 8528-8888. Contact: Jhenely Jazelle Tan.
+- Block Dates: October 25 to November 3, 2026 (250 rooms blocked/night).
+- Room Rates:
+  * Superior Room: Php 4,200.00 nett (Single/Twin), Php 5,500.00 nett (Triple) - 200 rooms blocked.
+  * Deluxe Room: Php 5,200.00 nett (Single/Twin), Php 6,500.00 nett (Triple) - 50 rooms blocked.
+  * Additional adult charge: Php 1,300.00 nett.
+- Amenities: Complimentary breakfast, daily mineral water replenishment, coffee/tea making.
+- Check-in: 2:00 PM | Check-out: 12:00 NN.
+  * Early check-in before 12:00 NN considered preceding day charge. Late check-out after 4:00 PM is additional whole day.
+- Payment: Personal account of guest. 1 night guarantee deposit to secure; balance at check-in. Incidental deposit waived if no signing privileges requested.
+- Cancellations: 14+ days before check-in = full refund of 1 night deposit. 7 days before = 50% cancellation fee. Within 6 days = non-refundable. Valid medical emergencies accepted with proof.
+- STRICT RULES & FINES:
+  * Smoking: Strictly prohibited in room/common areas. Fine: Php 10,000.00 net per incident.
+  * Balcony doors: Strictly locked for safety. Attempting to open = Php 20,000.00 net fine per incident!
+  * Children: 0-12 yrs stay free sharing beds with parents. Free parking: Yes. Pool: Yes.
+
+NETWORLD HOTEL (SPA & CASINO) CONTRACT:
+- Address: Roxas Blvd. cor Sen. Gil Puyat Ave., Pasay City. Phone: (632) 536-7777 loc 120. Contact: Alyannah Sarip Flavio.
+- Block Dates: October 25 to November 4, 2026 (73 rooms blocked/night).
+- Room Rates:
+  * Standard (Single Bed, 1 person): Php 2,300.00 net.
+  * Deluxe (Queen Bed, 2 persons): Php 2,800.00 net.
+  * Executive (2 Twin Beds, 2 persons): Php 3,600.00 net.
+  * Super Deluxe (King Bed, 2 persons): Php 3,700.00 net.
+  * Royal (2 Twin Beds, 2 persons): Php 3,800.00 net.
+  * Extra bed: Php 800.00 net with buffet breakfast.
+- Amenities: Welcome drink, daily buffet breakfast, daily bottled water, free Wi-Fi, airport transfer based on schedule, FREE DAILY DROP-OFF TO SMX CONVENTION CENTER / WORLD TRADE CENTER (prior reservation required).
+- Check-in: 3:00 PM | Check-out: 12:00 NN.
+  * Housekeeping/Cleaning: Accommodated until 11:00 AM (guests must vacate before 11:00 AM for cleaning).
+  * Late checkout: 12 NN to 6:00 PM = half-day charge; after 6:00 PM = full day charge.
+- Family Plan: Children 12 and below sharing room/beds are free; half price buffet breakfast. Children 7 and below extra bed free.
+- Cancellation: Postponement allowed within 72 hours if rooms available.
+
+8 SCENARIO RESPONSES (MODULE 5):
+1. Missing Reservation: Listen calmly, gather booking details, inform Keyman, wait for verification. Do not promise rooms or rebook.
+2. Incorrect Assignment: Verify details, record concern, inform Keyman/Hotel Coordinator, follow confirmed arrangement. Never change room yourself.
+3. Tired & Frustrated Delegate: Listen patiently, speak kindly, reassure that assistance is being sought, inform Keyman. Do not argue or become defensive.
+4. Hotel Reports Discrepancy: Note discrepancy, inform Keyman, wait while records are verified. Do not negotiate with hotel alone or decide which list is right.
+5. Delegate Requests Room Change: Inquire reason respectfully, inform Keyman to verify if approved adjustment is possible. Never promise or contact other hotels yourself.
+6. Urgent Lodging / Safety: Take seriously, get facts, alert Keyman immediately, coordinate with Hotel Coordinator.
+7. Last-Minute Arrival: Welcome calmly, collect info, notify Keyman to check established process. Do not guarantee lodging.
+8. Confidential Info Request: Politely decline to provide room numbers or hotel assignments. Protect privacy. Refer to Keyman.
+`;
+
+    // Tab Navigation Logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      const activeTab = document.getElementById('tab-' + tabId);
+      if (activeTab) activeTab.classList.remove('hidden');
+
+      // Update desktop nav styling
+      document.querySelectorAll('#navDesktop .tab-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-800', 'text-white');
+        btn.classList.add('text-slate-300');
+      });
+      const activeNav = document.getElementById('nav-' + tabId);
+      if (activeNav) {
+        activeNav.classList.add('bg-brand-800', 'text-white');
+        activeNav.classList.remove('text-slate-300');
+      }
+
+      // Close mobile menu if open
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (!mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+      }
+    }
+
+    function toggleMobileMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    }
+
+    function showHotelCard(hotelKey) {
+      const centuryCard = document.getElementById('card-century');
+      const networldCard = document.getElementById('card-networld');
+      const btnCentury = document.getElementById('btn-show-century');
+      const btnNetworld = document.getElementById('btn-show-networld');
+
+      if (hotelKey === 'century') {
+        centuryCard.classList.remove('hidden');
+        networldCard.classList.add('hidden');
+        btnCentury.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white shadow';
+        btnNetworld.className = 'px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200';
+      } else {
+        centuryCard.classList.add('hidden');
+        networldCard.classList.remove('hidden');
+        btnNetworld.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow';
+        btnCentury.className = 'px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200';
+      }
+    }
+
+    // Quick Prompt Helper
+    function quickPrompt(text) {
+      switchTab('chat');
+      const input = document.getElementById('chatInput');
+      input.value = text;
+      handleChatSubmit();
+    }
+
+    function clearChat() {
+      const messages = document.getElementById('chatMessages');
+      messages.innerHTML = `
+        <div class="flex items-start space-x-3 max-w-3xl">
+          <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex-shrink-0 flex items-center justify-center text-xs font-bold shadow">
+            IC
+          </div>
+          <div class="bg-slate-100 text-slate-800 chat-bubble-assistant p-4 shadow-sm border border-slate-200">
+            <p class="font-semibold text-slate-900 mb-1">Chat history refreshed.</p>
+            <p class="text-slate-700 leading-relaxed text-xs">How can I assist you with your Rooming desk assignment right now?</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // Chat handling and Gemini API Integration
+    async function handleChatSubmit(event) {
+      if (event) event.preventDefault();
+      const input = document.getElementById('chatInput');
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      appendUserMessage(userText);
+      input.value = '';
+
+      const typingId = appendTypingIndicator();
+
+      try {
+        const responseText = await callGeminiAssistant(userText);
+        removeTypingIndicator(typingId);
+        appendAssistantMessage(responseText);
+      } catch (err) {
+        removeTypingIndicator(typingId);
+        appendAssistantMessage("I apologize, but I encountered an issue connecting to the knowledge assistant. Remember the cardinal rule: In all doubts or discrepancies, immediately consult your **Keyman** or Hotel Coordinator!");
+      }
+    }
+
+    function appendUserMessage(text) {
+      const container = document.getElementById('chatMessages');
+      const bubble = document.createElement('div');
+      bubble.className = "flex justify-end";
+      bubble.innerHTML = `
+        <div class="bg-blue-600 text-white chat-bubble-user p-3 max-w-xl text-sm shadow-sm">
+          ${escapeHtml(text)}
+        </div>
+      `;
+      container.appendChild(bubble);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendTypingIndicator() {
+      const id = 'typing-' + Date.now();
+      const container = document.getElementById('chatMessages');
+      const bubble = document.createElement('div');
+      bubble.id = id;
+      bubble.className = "flex items-start space-x-3 max-w-xl";
+      bubble.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex-shrink-0 flex items-center justify-center text-xs font-bold shadow">
+          IC
+        </div>
+        <div class="bg-slate-100 text-slate-500 chat-bubble-assistant p-3 text-xs flex items-center gap-2 border border-slate-200">
+          <i class="fa-solid fa-spinner fa-spin text-blue-600"></i>
+          <span>Checking IC 2026 Rooming guidelines...</span>
+        </div>
+      `;
+      container.appendChild(bubble);
+      container.scrollTop = container.scrollHeight;
+      return id;
+    }
+
+    function removeTypingIndicator(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    function appendAssistantMessage(text) {
+      const container = document.getElementById('chatMessages');
+      const bubble = document.createElement('div');
+      bubble.className = "flex items-start space-x-3 max-w-3xl";
+      bubble.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex-shrink-0 flex items-center justify-center text-xs font-bold shadow">
+          IC
+        </div>
+        <div class="bg-slate-50 text-slate-800 chat-bubble-assistant p-4 shadow-sm border border-slate-200 text-sm leading-relaxed space-y-2">
+          ${formatMarkdown(text)}
+        </div>
+      `;
+      container.appendChild(bubble);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // Call Gemini API with Exponential Backoff
+    async function callGeminiAssistant(userPrompt) {
+      const apiKey = ""; // Canvas runtime environment provides API key
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      const systemInstruction = `
+You are the official IC 2026 Rooming Volunteer AI Assistant for the 2026 International Convention of Jehovah's Witnesses in Manila, Philippines.
+Use the following reference knowledge from the volunteer training notebook and hotel contracts to answer accurately, warmly, and politely:
+
+${NOTEBOOK_KNOWLEDGE}
+
+GUIDANCE RULES:
+1. Always maintain a warm, hospitable, respectful, and reassuring tone.
+2. Remind volunteers of the proper chain of command: General Volunteer -> Keyman (Hotel Coordinator) -> Assistant Overseer -> Rooming Overseer.
+3. Firmly remind volunteers NEVER to make independent promises, never reassign rooms alone, never promise early/late check-in, and never share confidential delegate room information.
+4. When asked about Century Park Hotel or Networld Hotel, cite exact rates, room categories, check-in times, breakfast details, and penalties (e.g. Century Park Php 20k balcony fine).
+5. Keep explanations direct, practical, and structured with bullet points where appropriate.
+`;
+
+      const payload = {
+        contents: [
+          { role: "user", parts: [{ text: userPrompt }] }
+        ],
+        systemInstruction: {
+          parts: [{ text: systemInstruction }]
+        }
+      };
+
+      const delays = [1000, 2000, 4000];
+      for (let attempt = 0; attempt <= delays.length; attempt++) {
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          const data = await response.json();
+          const candidate = data.candidates?.[0];
+          if (candidate?.content?.parts?.[0]?.text) {
+            return candidate.content.parts[0].text;
+          }
+        } catch (err) {
+          if (attempt < delays.length) {
+            await new Promise(r => setTimeout(r, delays[attempt]));
+          } else {
+            throw err;
+          }
+        }
+      }
+      throw new Error("Unable to get response.");
+    }
+
+    // Simple markdown formatting helper
+    function formatMarkdown(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>')
+        .replace(/• /g, '•&nbsp;');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.innerText = text;
+      return div.innerHTML;
+    }
+
+    // Interactive Quiz Evaluation
+    function evaluateQuiz() {
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const q3 = document.querySelector('input[name="q3"]:checked');
+
+      if (!q1 || !q2 || !q3) {
+        document.getElementById('quizScoreResult').innerHTML = `
+          <span class="text-amber-600">Please answer all 3 questions first.</span>
+        `;
+        return;
+      }
+
+      let score = 0;
+      if (q1.value === 'correct') score++;
+      if (q2.value === 'correct') score++;
+      if (q3.value === 'correct') score++;
+
+      const resultBox = document.getElementById('quizScoreResult');
+      if (score === 3) {
+        resultBox.innerHTML = `
+          <span class="text-emerald-700 bg-emerald-100 px-3 py-1 rounded-lg border border-emerald-300">
+            <i class="fa-solid fa-circle-check mr-1"></i> Perfect Score (3/3)! You are ready for your assignment!
+          </span>
+        `;
+      } else {
+        resultBox.innerHTML = `
+          <span class="text-blue-700 bg-blue-100 px-3 py-1 rounded-lg border border-blue-300">
+            You got ${score} of 3 correct. Review the 8 Scenarios and Hotel tabs!
+          </span>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
