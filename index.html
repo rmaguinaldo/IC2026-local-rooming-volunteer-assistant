@@ -1305,10 +1305,11 @@ GUIDANCE RULES:
             const errData = await response.json().catch(() => ({}));
             const msg = errData.error?.message || errData.error || `HTTP ${response.status}`;
             
-            if (response.status === 401 || response.status === 403) {
-              const customErr = new Error(`Authentication failed (${response.status}): ${msg}`);
-              customErr.status = response.status;
-              throw customErr;
+            // Do not retry fatal client errors: 404 (worker not found), 401/403 (unauthorized), 400 (bad request)
+            if (response.status === 404 || response.status === 401 || response.status === 403 || response.status === 400) {
+              const fatalErr = new Error(`Worker/API Error (${response.status}): ${msg}`);
+              fatalErr.status = response.status;
+              throw fatalErr;
             }
             throw new Error(msg);
           }
@@ -1319,7 +1320,8 @@ GUIDANCE RULES:
             return candidate.content.parts[0].text;
           }
         } catch (err) {
-          if (err.status === 401 || err.status === 403) {
+          // Immediately exit loop on 404, 401, or 403 errors
+          if (err.status === 404 || err.status === 401 || err.status === 403 || err.status === 400) {
             throw err;
           }
           if (attempt < delays.length) {
