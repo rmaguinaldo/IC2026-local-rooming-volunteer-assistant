@@ -988,7 +988,7 @@ All answers must strictly align with the IC 2026 Rooming Volunteer Training Note
 CORE DIRECTIVES & SPIRIT:
 - Care for the person, not just the rooming concern.
 - Maintain modesty, kindness, mildness, order, and Christian conduct (Col 3:12; 1 Pet 4:9; 1 Cor 14:40).
-- LINE OF REPORTING: General Volunteer -> Keyman / Hotel Coordinator -> Assistant Overseer -> Rooming Overseer.
+- LINE OF REPORTING: General Volunteer → Keyman / Hotel Coordinator → Assistant Overseer → Rooming Overseer.
 - Volunteers work WITH hotel personnel, not independently.
 - Volunteers NEVER independently change room assignments, bed configs, policies, charges, or promise early check-in / late checkout / upgrades.
 
@@ -1076,8 +1076,8 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
       if (q.includes('confidential') || q.includes('privacy') || q.includes('number') || q.includes('who is staying')) {
         return "**Confidentiality Safeguard (Scenario 8):**\n• Politely decline to share a delegate's room number, hotel assignment, or personal contact info.\n• Never show room lists to unauthorized persons.\n• Refer all inquiries to the **Keyman** to protect delegate privacy and security.";
       }
-      if (q.includes('overseer') || q.includes('chain') || q.includes('report') || q.includes('who should i')) {
-        return "**Line of Communication & Oversight:**\n1. **General Volunteer** (Hotel Info Desk)\n2. **Keyman** (Hotel Coordinator)\n3. **Assistant Overseer** (Elberg Pagad, Joseph Magpile, Ryan Torio, Mark Bognot, Hezron Elcano)\n4. **Rooming Overseer** (Jude Pambid)\nAlways report your concerns first to your **Keyman**!";
+      if (q.includes('overseer') || q.includes('chain') || q.includes('report') || q.includes('who should i') || q.includes('command')) {
+        return "**Line of Communication & Oversight:**\n\n**General Volunteer** → **Keyman (Hotel Coordinator)** → **Assistant Overseer** → **Rooming Overseer**\n\n• Always report your concerns first to your **Keyman** (Hotel Coordinator).\n• Keymen communicate directly with the assigned Assistant Overseers (Elberg Pagad, Joseph Magpile, Ryan Torio, Mark Bognot, Hezron Elcano).\n• Matters requiring higher attention are escalated to Rooming Overseer (Jude Pambid).";
       }
       if (q.includes('tired') || q.includes('frustrated') || q.includes('upset')) {
         return "**Tired & Frustrated Delegate (Scenario 3):**\n• Listen patiently and speak with Christian kindness and empathy (Colossians 3:12).\n• Acknowledge their concern and reassure them that assistance is being coordinated.\n• Inform your **Keyman** promptly. Never argue or make unverified promises.";
@@ -1264,7 +1264,7 @@ ${NOTEBOOK_KNOWLEDGE}
 
 GUIDANCE RULES:
 1. Always maintain a warm, hospitable, respectful, and reassuring tone.
-2. Remind volunteers of the proper chain of command: General Volunteer -> Keyman (Hotel Coordinator) -> Assistant Overseer -> Rooming Overseer.
+2. Remind volunteers of the proper chain of command: General Volunteer → Keyman (Hotel Coordinator) → Assistant Overseer → Rooming Overseer. Always format using clean unicode arrows (→) or clear steps. Never use LaTeX math symbols or syntax like $\\rightarrow$.
 3. Firmly remind volunteers NEVER to make independent promises, never reassign rooms alone, never promise early/late check-in, and never share confidential delegate room information.
 4. When asked about Century Park Hotel or Networld Hotel, cite exact rates, room categories, check-in times, breakfast details, and penalties (e.g. Century Park Php 20k balcony fine).
 5. Keep explanations direct, practical, and structured with bullet points where appropriate.
@@ -1288,7 +1288,7 @@ GUIDANCE RULES:
           // If neither Cloudflare Worker nor direct key is set, use built-in handbook logic directly
           throw new Error("No proxy or direct key configured; falling back to offline handbook.");
         }
-        endpointUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`;
+        endpointUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent`;
         headers['x-goog-api-key'] = directApiKey;
       }
 
@@ -1336,7 +1336,13 @@ GUIDANCE RULES:
 
     // Simple markdown formatting helper
     function formatMarkdown(str) {
-      return str
+      // Convert raw LaTeX math arrow notations or ASCII arrows into clean unicode arrows
+      const cleanedStr = str
+        .replace(/\$?\\rightarrow\$?/gi, ' → ')
+        .replace(/\$?\\to\$?/gi, ' → ')
+        .replace(/--?>/g, ' → ');
+
+      return cleanedStr
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
