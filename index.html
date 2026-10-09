@@ -1249,9 +1249,13 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
 
     // Call Gemini API with Exponential Backoff
     async function callGeminiAssistant(userPrompt) {
-      const apiKey = "${{ secrets.API_KEY }}";
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
+      // PROXY SETUP: Paste your Cloudflare Worker URL below to keep your API key 100% private.
+      // Example: "https://ic2026-gemini-proxy.your-subdomain.workers.dev"
+      const cloudflareProxyUrl = "https://ic2026-gemini-proxy.rmaguinaldo.workers.dev"; 
 
+      // Fallback direct key (if not using Cloudflare proxy):
+      const directApiKey = "";
+      
       const systemInstruction = `
 You are the official IC 2026 Rooming Volunteer AI Assistant for the 2026 International Convention of Jehovah's Witnesses in Manila, Philippines.
 Use the following reference knowledge from the volunteer training notebook and hotel contracts to answer accurately, warmly, and politely:
@@ -1275,23 +1279,31 @@ GUIDANCE RULES:
         }
       };
 
-      const requestHeaders = { 'Content-Type': 'application/json' };
-      if (apiKey) {
-        requestHeaders['x-goog-api-key'] = apiKey;
+      // Determine the endpoint to call
+      let endpointUrl = cloudflareProxyUrl;
+      const headers = { 'Content-Type': 'application/json' };
+
+      if (!endpointUrl) {
+        if (!directApiKey) {
+          // If neither Cloudflare Worker nor direct key is set, use built-in handbook logic directly
+          throw new Error("No proxy or direct key configured; falling back to offline handbook.");
+        }
+        endpointUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`;
+        headers['x-goog-api-key'] = directApiKey;
       }
 
       const delays = [1000, 2000];
       for (let attempt = 0; attempt <= delays.length; attempt++) {
         try {
-          const response = await fetch(apiUrl, {
+          const response = await fetch(endpointUrl, {
             method: 'POST',
-            headers: requestHeaders,
+            headers: headers,
             body: JSON.stringify(payload)
           });
           
           if (!response.ok) {
             const errData = await response.json().catch(() => ({}));
-            const msg = errData.error?.message || `HTTP ${response.status}`;
+            const msg = errData.error?.message || errData.error || `HTTP ${response.status}`;
             
             if (response.status === 401 || response.status === 403) {
               const customErr = new Error(`Authentication failed (${response.status}): ${msg}`);
