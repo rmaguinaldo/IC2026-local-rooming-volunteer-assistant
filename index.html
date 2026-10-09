@@ -65,6 +65,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased h-screen flex flex-col overflow-hidden">
 
+  <!-- ================= TOP HEADER NAVIGATION ================= -->
   <header class="bg-brand-900 text-white shadow-md z-20 flex-shrink-0">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
@@ -144,9 +145,10 @@
     </div>
   </header>
 
+  <!-- ================= MAIN APP CONTAINER ================= -->
   <main class="flex-1 overflow-hidden relative max-w-7xl w-full mx-auto p-2 sm:p-4 md:p-6 flex flex-col">
 
-    <!-- ================= TAB 1: AI ASK DESK (Primary Interactive Assistant) ================= -->
+    <!-- ================= TAB 1: AI ASK DESK ================= -->
     <section id="tab-chat" class="tab-content flex-1 flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden h-full">
       <div class="bg-gradient-to-r from-slate-50 to-blue-50/50 border-b border-slate-200 px-4 py-3 flex items-center justify-between">
         <div class="flex items-center space-x-3">
@@ -213,7 +215,7 @@
           <input
             id="chatInput"
             type="text"
-            placeholder="Ask anything (e.g., 'What if a delegate wants early check-in?' or 'Who is the Rooming Overseer?')..."
+            placeholder="Ask anything (e.g. 'What is the fine for opening balcony doors at Century Park?' or 'What is the chain of command?')..."
             class="w-full pl-4 pr-24 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
             autocomplete="off"
           />
@@ -233,6 +235,7 @@
       </div>
     </section>
 
+    <!-- ================= TAB 2: 8 PRACTICAL SCENARIOS ================= -->
     <section id="tab-scenarios" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
       <div class="border-b border-slate-200 pb-4">
         <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs tracking-wider uppercase">
@@ -489,6 +492,7 @@
       </div>
     </section>
 
+    <!-- ================= TAB 3: HOTEL CONTRACTS ================= -->
     <section id="tab-hotels" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
       <div class="border-b border-slate-200 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -690,6 +694,7 @@
       </div>
     </section>
 
+    <!-- ================= TAB 4: ORGANIZATION & ROLES ================= -->
     <section id="tab-org" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
       <div class="border-b border-slate-200 pb-4">
         <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs tracking-wider uppercase">
@@ -787,6 +792,7 @@
       </div>
     </section>
 
+    <!-- ================= TAB 5: KEY SAFEGUARDS & CONDUCT ================= -->
     <section id="tab-rules" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
       <div class="border-b border-slate-200 pb-4">
         <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs tracking-wider uppercase">
@@ -859,7 +865,6 @@
               <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
               <span><strong>NEVER commit the hotel or organization to fees</strong>, waivers, or financial adjustments.</span>
             </li>
-            <li class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></li>
             <li class="flex items-start gap-2">
               <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
               <span><strong>NEVER disclose confidential delegate information</strong> or show rooming sheets to third parties.</span>
@@ -900,6 +905,7 @@
       </div>
     </section>
 
+    <!-- ================= TAB 6: QUIZ ME ================= -->
     <section id="tab-quiz" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
       <div class="border-b border-slate-200 pb-4">
         <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs tracking-wider uppercase">
@@ -979,6 +985,7 @@
 
   </main>
 
+  <!-- ================= JAVASCRIPT LOGIC & KNOWLEDGE BASE ================= -->
   <script>
     // Knowledge Base context derived directly from uploaded notebook slides & hotel contracts
     const NOTEBOOK_KNOWLEDGE = `
@@ -1249,13 +1256,9 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
       container.scrollTop = container.scrollHeight;
     }
 
-    // Call Gemini API with Exponential Backoff
+    // Call Gemini API via Cloudflare Worker Proxy or Fallback
     async function callGeminiAssistant(userPrompt) {
-      // PROXY SETUP: Paste your Cloudflare Worker URL below to keep your API key 100% private.
-      // Example: "https://ic2026-gemini-proxy.your-subdomain.workers.dev"
-      const cloudflareProxyUrl = "https://ic2026-gemini-proxy.rmaguinaldo.workers.dev"; 
-
-      // Fallback direct key (if not using Cloudflare proxy):
+      const cloudflareProxyUrl = "https://ic2026-gemini-proxy.rmaguinaldo.workers.dev/rooming-department-assistant"; 
       const directApiKey = "";
       
       const systemInstruction = `
@@ -1281,13 +1284,11 @@ GUIDANCE RULES:
         }
       };
 
-      // Determine the endpoint to call
       let endpointUrl = cloudflareProxyUrl;
       const headers = { 'Content-Type': 'application/json' };
 
       if (!endpointUrl) {
         if (!directApiKey) {
-          // If neither Cloudflare Worker nor direct key is set, use built-in handbook logic directly
           throw new Error("No proxy or direct key configured; falling back to offline handbook.");
         }
         endpointUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent`;
@@ -1307,7 +1308,7 @@ GUIDANCE RULES:
             const errData = await response.json().catch(() => ({}));
             const msg = errData.error?.message || errData.error || `HTTP ${response.status}`;
             
-            // Do not retry fatal client/service errors: 404 (not found), 401/403 (unauthorized), 400 (bad request), 503 (high demand / unavailable), 429 (rate limit)
+            // Do not retry fatal client/service errors: 404, 401, 403, 400, 503, 429
             if (response.status === 404 || response.status === 401 || response.status === 403 || response.status === 400 || response.status === 503 || response.status === 429) {
               const fatalErr = new Error(`Worker/API Error (${response.status}): ${msg}`);
               fatalErr.status = response.status;
@@ -1322,8 +1323,7 @@ GUIDANCE RULES:
             return candidate.content.parts[0].text;
           }
         } catch (err) {
-          // Immediately exit loop on non-retriable errors
-          if (err.status === 404 || err.status === 401 || err.status === 403 || err.status === 400 || err.status === 503) {
+          if (err.status === 404 || err.status === 401 || err.status === 403 || err.status === 400 || err.status === 503 || err.status === 429) {
             throw err;
           }
           if (attempt < delays.length) {
@@ -1338,7 +1338,6 @@ GUIDANCE RULES:
 
     // Simple markdown formatting helper
     function formatMarkdown(str) {
-      // Convert raw LaTeX math arrow notations or ASCII arrows into clean unicode arrows
       const cleanedStr = str
         .replace(/\$?\\rightarrow\$?/gi, ' → ')
         .replace(/\$?\\to\$?/gi, ' → ')
