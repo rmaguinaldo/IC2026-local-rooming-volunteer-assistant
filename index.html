@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IC 2026 - Rooming Volunteer Smart Assistant</title>
+  <!-- Inline Favicon to eliminate favicon.ico 404 console error -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231e3a8a'/><text y='65' font-size='55' x='20' fill='white'>🏨</text></svg>">
   <!-- Suppress dev CDN console warning -->
   <script>
     const _origWarn = console.warn;
@@ -1305,8 +1307,8 @@ GUIDANCE RULES:
             const errData = await response.json().catch(() => ({}));
             const msg = errData.error?.message || errData.error || `HTTP ${response.status}`;
             
-            // Do not retry fatal client errors: 404 (worker not found), 401/403 (unauthorized), 400 (bad request)
-            if (response.status === 404 || response.status === 401 || response.status === 403 || response.status === 400) {
+            // Do not retry fatal client/service errors: 404 (not found), 401/403 (unauthorized), 400 (bad request), 503 (service unavailable)
+            if (response.status === 404 || response.status === 401 || response.status === 403 || response.status === 400 || response.status === 503) {
               const fatalErr = new Error(`Worker/API Error (${response.status}): ${msg}`);
               fatalErr.status = response.status;
               throw fatalErr;
@@ -1320,8 +1322,8 @@ GUIDANCE RULES:
             return candidate.content.parts[0].text;
           }
         } catch (err) {
-          // Immediately exit loop on 404, 401, or 403 errors
-          if (err.status === 404 || err.status === 401 || err.status === 403 || err.status === 400) {
+          // Immediately exit loop on non-retriable errors
+          if (err.status === 404 || err.status === 401 || err.status === 403 || err.status === 400 || err.status === 503) {
             throw err;
           }
           if (attempt < delays.length) {
