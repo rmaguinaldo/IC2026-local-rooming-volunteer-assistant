@@ -1307,8 +1307,8 @@ GUIDANCE RULES:
             const errData = await response.json().catch(() => ({}));
             const msg = errData.error?.message || errData.error || `HTTP ${response.status}`;
             
-            // Do not retry fatal client/service errors: 404 (not found), 401/403 (unauthorized), 400 (bad request), 503 (service unavailable)
-            if (response.status === 404 || response.status === 401 || response.status === 403 || response.status === 400 || response.status === 503) {
+            // Do not retry fatal client/service errors: 404 (not found), 401/403 (unauthorized), 400 (bad request), 503 (high demand / unavailable), 429 (rate limit)
+            if (response.status === 404 || response.status === 401 || response.status === 403 || response.status === 400 || response.status === 503 || response.status === 429) {
               const fatalErr = new Error(`Worker/API Error (${response.status}): ${msg}`);
               fatalErr.status = response.status;
               throw fatalErr;
