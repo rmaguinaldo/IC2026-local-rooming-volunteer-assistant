@@ -204,6 +204,9 @@
               <button onclick="quickPrompt('Someone is asking for a delegate\'s hotel room number. May I give it?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
                 🔒 Privacy & Room Inquiry
               </button>
+              <button onclick="quickPrompt('Who is the Keyman and Assistant Overseer for Century Park Hotel and Networld Hotel?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                👤 Keyman & Asst. Overseer
+              </button>
             </div>
           </div>
         </div>
@@ -525,6 +528,30 @@
           </div>
         </div>
 
+        <!-- Rooming Leadership & Oversight for Century Park -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-blue-50/80 border border-blue-200 rounded-xl p-3.5 text-xs shadow-2xs">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">Keyman (Hotel Coordinator)</span>
+              <span class="text-sm font-extrabold text-slate-900">Reggie Aguinaldo</span>
+              <span class="text-[11px] text-slate-500 block">Direct contact for hotel front desk volunteers</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 block">Assistant Overseer</span>
+              <span class="text-sm font-extrabold text-slate-900">Mark Bognot</span>
+              <span class="text-[11px] text-slate-500 block">Supervises Century Park Hotel Rooming operations</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Rates Table -->
         <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-2xs">
           <table class="min-w-full text-xs text-left">
@@ -608,6 +635,30 @@
             <div class="text-xs text-slate-300 font-medium">Blocked Rooms</div>
             <div class="text-2xl font-black text-white">73 <span class="text-xs font-normal">rooms/night</span></div>
             <div class="text-[11px] text-slate-300">Oct 25 – Nov 4, 2026</div>
+          </div>
+        </div>
+
+        <!-- Rooming Leadership & Oversight for Networld -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-emerald-50/80 border border-emerald-200 rounded-xl p-3.5 text-xs shadow-2xs">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800 block">Keyman (Hotel Coordinator)</span>
+              <span class="text-sm font-extrabold text-slate-900">Reggie Aguinaldo</span>
+              <span class="text-[11px] text-slate-500 block">Direct contact for hotel front desk volunteers</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-teal-800 block">Assistant Overseer</span>
+              <span class="text-sm font-extrabold text-slate-900">Mark Bognot</span>
+              <span class="text-[11px] text-slate-500 block">Supervises Networld Hotel Rooming operations</span>
+            </div>
           </div>
         </div>
 
@@ -716,16 +767,19 @@
           <div class="bg-blue-600 text-white p-3 rounded-lg text-center flex-1 shadow-xs">
             <div class="font-bold">Keyman</div>
             <div class="text-[11px] text-blue-100">Hotel Coordinator</div>
+            <div class="text-[10px] text-blue-200 mt-0.5 font-semibold">Reggie Aguinaldo</div>
           </div>
           <i class="fa-solid fa-arrow-right text-blue-400 rotate-90 sm:rotate-0"></i>
           <div class="bg-white p-3 rounded-lg border border-blue-200 text-center flex-1 shadow-2xs">
             <div class="font-bold text-blue-900">Assistant Overseer</div>
             <div class="text-[11px] text-slate-500">Supervises Hotel Group</div>
+            <div class="text-[10px] text-indigo-700 mt-0.5 font-semibold">Mark Bognot</div>
           </div>
           <i class="fa-solid fa-arrow-right text-blue-400 rotate-90 sm:rotate-0"></i>
           <div class="bg-slate-900 text-white p-3 rounded-lg text-center flex-1 shadow-xs">
             <div class="font-bold">Rooming Overseer</div>
             <div class="text-[11px] text-slate-300">Overall Dept. Oversight</div>
+            <div class="text-[10px] text-slate-400 mt-0.5 font-semibold">Jude Pambid</div>
           </div>
         </div>
       </div>
@@ -773,7 +827,7 @@
             </li>
             <li class="flex justify-between border-b border-blue-100 pb-1.5">
               <span class="font-medium">Rooming Assistant Overseers:</span>
-              <span class="font-semibold text-blue-950 text-right">Elberg Pagad, Joseph Magpile,<br>Ryan Torio, Mark Bognot, Hezron Elcano</span>
+              <span class="font-semibold text-blue-950 text-right">Mark Bognot (Century Park & Networld),<br>Elberg Pagad, Joseph Magpile, Ryan Torio, Hezron Elcano</span>
             </li>
             <li class="flex justify-between border-b border-blue-100 pb-1.5">
               <span class="font-medium">Rooming / Hospitality Dept Overseer:</span>
@@ -788,6 +842,43 @@
               <span class="font-semibold text-blue-950">Ralph L. Balmaceda</span>
             </li>
           </ul>
+        </div>
+      </div>
+
+      <!-- Assigned Hotel Overseers & Keymen -->
+      <div class="p-4 rounded-xl border border-indigo-200 bg-gradient-to-r from-blue-50/70 to-indigo-50/70 space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+          <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+            <i class="fa-solid fa-hotel text-blue-600"></i> Hotel Assignments (Century Park Hotel & Networld Hotel)
+          </h4>
+          <span class="text-[11px] font-semibold text-indigo-700 bg-indigo-100/80 px-2.5 py-0.5 rounded-full border border-indigo-200 self-start sm:self-auto">
+            Hotel Rooming Team
+          </span>
+        </div>
+        <p class="text-xs text-slate-600">
+          Volunteers stationed at the hotel information desks at Century Park Hotel and Networld Hotel report directly through this line of oversight:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div class="bg-white p-3.5 rounded-xl border border-blue-200 flex items-center gap-3.5 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">Keyman (Hotel Coordinator)</span>
+              <div class="text-sm font-extrabold text-slate-900">Reggie Aguinaldo</div>
+              <span class="text-[11px] text-slate-500">Century Park Hotel & Networld Hotel</span>
+            </div>
+          </div>
+          <div class="bg-white p-3.5 rounded-xl border border-indigo-200 flex items-center gap-3.5 shadow-2xs">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 block">Assistant Overseer</span>
+              <div class="text-sm font-extrabold text-slate-900">Mark Bognot</div>
+              <span class="text-[11px] text-slate-500">Century Park Hotel & Networld Hotel</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1008,14 +1099,25 @@ ORGANIZATIONAL LEADERSHIP:
 - Convention Committee Coordinator: Angelito Co Jr.
 - Convention Committee Assistant Coordinators: Fernand "Benjie" Dizon, Angelo Capulla
 - Rooming Overseer: Jude Pambid
-- Rooming Assistant Overseers: Elberg Pagad, Joseph Magpile, Ryan Torio, Mark Bognot, Hezron Elcano
+- Rooming Assistant Overseers: Mark Bognot (Century Park Hotel & Networld Hotel), Elberg Pagad, Joseph Magpile, Ryan Torio, Hezron Elcano
 - Rooming / Hospitality Department Overseer: Rey Barin
 - Hospitality Dept Assistant Overseer: Bonn Gavia
 - Contract Representative / Negotiator: Ralph L. Balmaceda
 - Rooming Coordinators: Diomedes Arciaga Jr., Jonathan de Jesus
 - Meeting Planner: Stephen E. Zilavetz
 
+HOTEL ASSIGNMENTS & LEADERSHIP (CENTURY PARK & NETWORLD):
+- Century Park Hotel:
+  * Keyman (Hotel Coordinator): Reggie Aguinaldo
+  * Assistant Overseer: Mark Bognot
+- Networld Hotel:
+  * Keyman (Hotel Coordinator): Reggie Aguinaldo
+  * Assistant Overseer: Mark Bognot
+
 CENTURY PARK HOTEL CONTRACT:
+- Rooming Leadership:
+  * Keyman (Hotel Coordinator): Reggie Aguinaldo
+  * Assistant Overseer: Mark Bognot
 - Address: 599 P. Ocampo St., Malate, Manila. Phone: (632) 8528-8888. Contact: Jhenely Jazelle Tan.
 - Block Dates: October 25 to November 3, 2026 (250 rooms blocked/night).
 - Room Rates:
@@ -1033,6 +1135,9 @@ CENTURY PARK HOTEL CONTRACT:
   * Children: 0-12 yrs stay free sharing beds with parents. Free parking: Yes. Pool: Yes.
 
 NETWORLD HOTEL (SPA & CASINO) CONTRACT:
+- Rooming Leadership:
+  * Keyman (Hotel Coordinator): Reggie Aguinaldo
+  * Assistant Overseer: Mark Bognot
 - Address: Roxas Blvd. cor Sen. Gil Puyat Ave., Pasay City. Phone: (632) 536-7777 loc 120. Contact: Alyannah Sarip Flavio.
 - Block Dates: October 25 to November 4, 2026 (73 rooms blocked/night).
 - Room Rates:
@@ -1050,20 +1155,29 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
 - Cancellation: Postponement allowed within 72 hours if rooms available.
 
 8 SCENARIO RESPONSES (MODULE 5):
-1. Missing Reservation: Listen calmly, gather booking details, inform Keyman, wait for verification. Do not promise rooms or rebook.
-2. Incorrect Assignment: Verify details, record concern, inform Keyman/Hotel Coordinator, follow confirmed arrangement. Never change room yourself.
-3. Tired & Frustrated Delegate: Listen patiently, speak kindly, reassure that assistance is being sought, inform Keyman. Do not argue or become defensive.
-4. Hotel Reports Discrepancy: Note discrepancy, inform Keyman, wait while records are verified. Do not negotiate with hotel alone or decide which list is right.
-5. Delegate Requests Room Change: Inquire reason respectfully, inform Keyman to verify if approved adjustment is possible. Never promise or contact other hotels yourself.
-6. Urgent Lodging / Safety: Take seriously, get facts, alert Keyman immediately, coordinate with Hotel Coordinator.
-7. Last-Minute Arrival: Welcome calmly, collect info, notify Keyman to check established process. Do not guarantee lodging.
-8. Confidential Info Request: Politely decline to provide room numbers or hotel assignments. Protect privacy. Refer to Keyman.
+1. Missing Reservation: Listen calmly, gather booking details, inform Keyman (Reggie Aguinaldo), wait for verification. Do not promise rooms or rebook.
+2. Incorrect Assignment: Verify details, record concern, inform Keyman (Reggie Aguinaldo) / Assistant Overseer (Mark Bognot), follow confirmed arrangement. Never change room yourself.
+3. Tired & Frustrated Delegate: Listen patiently, speak kindly, reassure that assistance is being sought, inform Keyman (Reggie Aguinaldo). Do not argue or become defensive.
+4. Hotel Reports Discrepancy: Note discrepancy, inform Keyman (Reggie Aguinaldo), wait while records are verified. Do not negotiate with hotel alone or decide which list is right.
+5. Delegate Requests Room Change: Inquire reason respectfully, inform Keyman (Reggie Aguinaldo) to verify if approved adjustment is possible. Never promise or contact other hotels yourself.
+6. Urgent Lodging / Safety: Take seriously, get facts, alert Keyman (Reggie Aguinaldo) immediately, coordinate with Assistant Overseer (Mark Bognot).
+7. Last-Minute Arrival: Welcome calmly, collect info, notify Keyman (Reggie Aguinaldo) to check established process. Do not guarantee lodging.
+8. Confidential Info Request: Politely decline to provide room numbers or hotel assignments. Protect privacy. Refer to Keyman (Reggie Aguinaldo).
 `;
 
     // Local / Offline rule matching fallback dictionary
     function findOfflineAnswer(query) {
       const q = query.toLowerCase();
 
+      if (q.includes('reggie') || q.includes('aguinaldo') || q.includes('bognot') || q.includes('keyman') || (q.includes('assistant') && q.includes('overseer'))) {
+        return "**Hotel Leadership & Rooming Contacts (Century Park Hotel & Networld Hotel):**\n\n" +
+               "• **Keyman (Hotel Coordinator):** Reggie Aguinaldo\n" +
+               "• **Assistant Overseer:** Mark Bognot\n" +
+               "• **Rooming Overseer:** Jude Pambid\n\n" +
+               "**Reporting Flow:**\n" +
+               "General Volunteer → **Keyman (Reggie Aguinaldo)** → **Assistant Overseer (Mark Bognot)** → **Rooming Overseer (Jude Pambid)**\n\n" +
+               "General volunteers stationed at Century Park Hotel and Networld Hotel should direct all front-desk questions, rooming concerns, and coordination matters first to their Keyman, **Reggie Aguinaldo**.";
+      }
       if (q.includes('balcony')) {
         return "**Century Park Balcony Policy:**\nOpening balcony doors is strictly prohibited for safety and security. Any attempt to open the balcony door carries a strict fine of **Php 20,000.00 net** per incident (Contract Section IX).";
       }
@@ -1071,28 +1185,28 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
         return "**Smoking Policy:**\nSmoking is strictly prohibited inside the hotel premises (including guestrooms and corridors). At Century Park Hotel, a **Php 10,000.00 net** fee is charged per incident. At Networld Hotel, all blocked rooms are non-smoking.";
       }
       if (q.includes('century park') && (q.includes('rate') || q.includes('price') || q.includes('cost') || q.includes('breakfast'))) {
-        return "**Century Park Hotel Rates (Nett):**\n• **Superior Room:** Php 4,200.00 (Single/Twin) | Php 5,500.00 (Triple)\n• **Deluxe Room:** Php 5,200.00 (Single/Twin) | Php 6,500.00 (Triple)\n• Additional adult: Php 1,300.00\n• **Inclusions:** Buffet breakfast, daily replenished mineral water, coffee/tea facilities.\n• **Check-in:** 2:00 PM | **Check-out:** 12:00 NN.";
+        return "**Century Park Hotel Rates (Nett):**\n• **Superior Room:** Php 4,200.00 (Single/Twin) | Php 5,500.00 (Triple)\n• **Deluxe Room:** Php 5,200.00 (Single/Twin) | Php 6,500.00 (Triple)\n• Additional adult: Php 1,300.00\n• **Inclusions:** Buffet breakfast, daily replenished mineral water, coffee/tea facilities.\n• **Check-in:** 2:00 PM | **Check-out:** 12:00 NN.\n• **Assigned Keyman:** Reggie Aguinaldo | **Assistant Overseer:** Mark Bognot";
       }
       if (q.includes('networld') && (q.includes('rate') || q.includes('shuttle') || q.includes('smx') || q.includes('price'))) {
-        return "**Networld Hotel Details & Rates (Net):**\n• **Standard:** Php 2,300.00 (1 person)\n• **Deluxe:** Php 2,800.00 (Queen, 2 persons)\n• **Executive:** Php 3,600.00 (2 Twin Beds, 2 persons)\n• **Super Deluxe:** Php 3,700.00 (King, 2 persons)\n• **Royal:** Php 3,800.00 (2 Twin Beds, 2 persons)\n• Extra bed: Php 800.00 with buffet breakfast.\n• **Shuttle:** Free daily drop-off to SMX Convention Center / World Trade Center (prior reservation required).\n• **Check-in:** 3:00 PM | **Check-out:** 12:00 NN (Housekeeping cleaning until 11:00 AM).";
+        return "**Networld Hotel Details & Rates (Net):**\n• **Standard:** Php 2,300.00 (1 person)\n• **Deluxe:** Php 2,800.00 (Queen, 2 persons)\n• **Executive:** Php 3,600.00 (2 Twin Beds, 2 persons)\n• **Super Deluxe:** Php 3,700.00 (King, 2 persons)\n• **Royal:** Php 3,800.00 (2 Twin Beds, 2 persons)\n• Extra bed: Php 800.00 with buffet breakfast.\n• **Shuttle:** Free daily drop-off to SMX Convention Center / World Trade Center (prior reservation required).\n• **Check-in:** 3:00 PM | **Check-out:** 12:00 NN (Housekeeping cleaning until 11:00 AM).\n• **Assigned Keyman:** Reggie Aguinaldo | **Assistant Overseer:** Mark Bognot";
       }
       if (q.includes('missing') || (q.includes('cannot find') && q.includes('reservation'))) {
-        return "**Scenario 1: Missing Reservation Protocol:**\n1. **Listen carefully** to the delegate and remain calm and reassuring.\n2. Gather reservation details (guest name, confirmation number, arrival date).\n3. **Inform your Keyman (Hotel Coordinator)** immediately.\n4. **What NOT to do:** Do NOT promise a room immediately, do NOT make a new booking independently, and do NOT argue with the hotel front office.";
+        return "**Scenario 1: Missing Reservation Protocol:**\n1. **Listen carefully** to the delegate and remain calm and reassuring.\n2. Gather reservation details (guest name, confirmation number, arrival date).\n3. **Inform your Keyman (Reggie Aguinaldo)** immediately.\n4. **What NOT to do:** Do NOT promise a room immediately, do NOT make a new booking independently, and do NOT argue with the hotel front office.";
       }
       if (q.includes('change') && (q.includes('room') || q.includes('bed') || q.includes('upgrade'))) {
-        return "**Room Change Request (Scenario 5 & Guidelines):**\n• Rooming Volunteers must **NEVER independently change room assignments or bed setups**.\n• Respectfully ask the delegate for their reason, note the details, and **refer the matter to your Keyman**.\n• The Keyman will check with the Hotel Coordinator and hotel front office if an approved adjustment is possible.";
+        return "**Room Change Request (Scenario 5 & Guidelines):**\n• Rooming Volunteers must **NEVER independently change room assignments or bed setups**.\n• Respectfully ask the delegate for their reason, note the details, and **refer the matter to your Keyman (Reggie Aguinaldo)**.\n• The Keyman will check with Assistant Overseer **Mark Bognot** and the hotel front office if an approved adjustment is possible.";
       }
       if (q.includes('confidential') || q.includes('privacy') || q.includes('number') || q.includes('who is staying')) {
-        return "**Confidentiality Safeguard (Scenario 8):**\n• Politely decline to share a delegate's room number, hotel assignment, or personal contact info.\n• Never show room lists to unauthorized persons.\n• Refer all inquiries to the **Keyman** to protect delegate privacy and security.";
+        return "**Confidentiality Safeguard (Scenario 8):**\n• Politely decline to share a delegate's room number, hotel assignment, or personal contact info.\n• Never show room lists to unauthorized persons.\n• Refer all inquiries to Keyman **Reggie Aguinaldo** to protect delegate privacy and security.";
       }
       if (q.includes('overseer') || q.includes('chain') || q.includes('report') || q.includes('who should i') || q.includes('command')) {
-        return "**Line of Communication & Oversight:**\n\n**General Volunteer** → **Keyman (Hotel Coordinator)** → **Assistant Overseer** → **Rooming Overseer**\n\n• Always report your concerns first to your **Keyman** (Hotel Coordinator).\n• Keymen communicate directly with the assigned Assistant Overseers (Elberg Pagad, Joseph Magpile, Ryan Torio, Mark Bognot, Hezron Elcano).\n• Matters requiring higher attention are escalated to Rooming Overseer (Jude Pambid).";
+        return "**Line of Communication & Oversight:**\n\n**General Volunteer** → **Keyman (Hotel Coordinator)** → **Assistant Overseer** → **Rooming Overseer**\n\n• **Century Park Hotel & Networld Hotel Assignments:**\n  - **Keyman (Hotel Coordinator):** Reggie Aguinaldo\n  - **Assistant Overseer:** Mark Bognot\n• Always report your concerns first to your Keyman (**Reggie Aguinaldo**).\n• Keyman communicates directly with Assistant Overseer (**Mark Bognot**).\n• Matters requiring higher attention are escalated to Rooming Overseer (Jude Pambid).";
       }
       if (q.includes('tired') || q.includes('frustrated') || q.includes('upset')) {
-        return "**Tired & Frustrated Delegate (Scenario 3):**\n• Listen patiently and speak with Christian kindness and empathy (Colossians 3:12).\n• Acknowledge their concern and reassure them that assistance is being coordinated.\n• Inform your **Keyman** promptly. Never argue or make unverified promises.";
+        return "**Tired & Frustrated Delegate (Scenario 3):**\n• Listen patiently and speak with Christian kindness and empathy (Colossians 3:12).\n• Acknowledge their concern and reassure them that assistance is being coordinated.\n• Inform your Keyman (**Reggie Aguinaldo**) promptly. Never argue or make unverified promises.";
       }
       if (q.includes('early check') || q.includes('late check')) {
-        return "**Early Check-in / Late Checkout Policies:**\n• Volunteers must **never promise** early check-in or late checkout.\n• **Century Park Hotel:** Check-in 2:00 PM, Check-out 12:00 NN. Early check-in before 12:00 NN is charged preceding day. Late check-out after 4:00 PM is charged whole additional day.\n• **Networld Hotel:** Check-in 3:00 PM, Check-out 12:00 NN. 12 NN-6 PM is half-day charge; after 6 PM is whole day charge.\n• Always refer delegate requests directly to the hotel front desk and your **Keyman**.";
+        return "**Early Check-in / Late Checkout Policies:**\n• Volunteers must **never promise** early check-in or late checkout.\n• **Century Park Hotel:** Check-in 2:00 PM, Check-out 12:00 NN. Early check-in before 12:00 NN is charged preceding day. Late check-out after 4:00 PM is charged whole additional day.\n• **Networld Hotel:** Check-in 3:00 PM, Check-out 12:00 NN. 12 NN-6 PM is half-day charge; after 6 PM is whole day charge.\n• Always refer delegate requests directly to the hotel front desk and your Keyman (**Reggie Aguinaldo**).";
       }
       return null;
     }
@@ -1194,7 +1308,8 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
         } else {
           appendAssistantMessage(
             `**Rooming Volunteer Protocol:**\n\n` +
-            `• **First Step:** Please communicate directly with your **Keyman (Hotel Coordinator)** for direction on this situation.\n` +
+            `• **First Step:** Please communicate directly with your **Keyman (Reggie Aguinaldo)** for direction on this situation.\n` +
+            `• **Chain of Oversight:** General Volunteer → Keyman (**Reggie Aguinaldo**) → Assistant Overseer (**Mark Bognot**) → Rooming Overseer (Jude Pambid).\n` +
             `• **Cardinal Rule:** General volunteers must not make independent adjustments to rooms, bookings, or hotel arrangements.\n` +
             `• You can also refer to the **8 Scenarios**, **Hotel Contracts**, and **Key Safeguards** tabs above for complete official guidance.`
           );
@@ -1271,7 +1386,7 @@ GUIDANCE RULES:
 1. Always maintain a warm, hospitable, respectful, and reassuring tone.
 2. Remind volunteers of the proper chain of command: General Volunteer → Keyman (Hotel Coordinator) → Assistant Overseer → Rooming Overseer. Always format using clean unicode arrows (→) or clear steps. Never use LaTeX math symbols or syntax like $\\rightarrow$.
 3. Firmly remind volunteers NEVER to make independent promises, never reassign rooms alone, never promise early/late check-in, and never share confidential delegate room information.
-4. When asked about Century Park Hotel or Networld Hotel, cite exact rates, room categories, check-in times, breakfast details, and penalties (e.g. Century Park Php 20k balcony fine).
+4. When asked about Century Park Hotel or Networld Hotel, cite exact rates, room categories, check-in times, breakfast details, penalties (e.g. Century Park Php 20k balcony fine), and assigned leadership: Keyman: Reggie Aguinaldo; Assistant Overseer: Mark Bognot.
 5. Keep explanations direct, practical, and structured with bullet points where appropriate.
 `;
 
