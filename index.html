@@ -111,9 +111,9 @@
 
         <!-- Right Side Quick Info & Mobile Menu -->
         <div class="flex items-center gap-2">
-          <div class="hidden lg:flex flex-col text-right text-xs text-blue-200">
-            <span class="font-semibold text-white">Rule #1: Always Consult Keyman</span>
-            <span>Do not independently alter rooms</span>
+          <div class="hidden lg:flex flex-col text-right text-xs">
+            <span class="font-bold text-amber-300 flex items-center justify-end gap-1"><i class="fa-solid fa-lock text-[11px]"></i> Local Rooming Volunteers Only</span>
+            <span class="text-slate-300 text-[11px]">Confidential • Cannot be shared</span>
           </div>
           <button onclick="toggleMobileMenu()" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg focus:outline-none" aria-label="Toggle Navigation Menu">
             <i class="fa-solid fa-bars text-xl" id="menuIcon"></i>
@@ -141,9 +141,28 @@
         <button onclick="switchTab('quiz')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
           <i class="fa-solid fa-circle-question"></i> Volunteer Training Quiz
         </button>
+        <div class="w-full mt-2 pt-2 border-t border-brand-800 text-[11px] text-amber-300 flex items-center gap-1.5 px-2">
+          <i class="fa-solid fa-lock"></i>
+          <span>For Local Rooming Volunteers only. Cannot be shared with anyone.</span>
+        </div>
       </div>
     </div>
   </header>
+
+  <!-- ================= RESTRICTED ACCESS DISCLAIMER BANNER ================= -->
+  <aside class="bg-amber-100 border-b border-amber-300/80 text-amber-950 px-4 py-2 flex items-center justify-between text-xs font-medium z-10 flex-shrink-0" aria-label="Confidentiality Disclaimer">
+    <div class="max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-4 text-center sm:text-left">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-triangle-exclamation text-amber-700 text-sm flex-shrink-0"></i>
+        <span>
+          <strong class="font-bold text-amber-950">Confidential Disclaimer:</strong> This app can be used <strong>only for Local Rooming volunteers</strong> and <strong>cannot be shared with anyone</strong>.
+        </span>
+      </div>
+      <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded border border-amber-300 flex-shrink-0">
+        Strictly Confidential • Do Not Share
+      </span>
+    </div>
+  </aside>
 
   <!-- ================= MAIN APP CONTAINER ================= -->
   <main class="flex-1 overflow-hidden relative max-w-7xl w-full mx-auto p-2 sm:p-4 md:p-6 flex flex-col">
@@ -187,6 +206,12 @@
             <p class="text-slate-700 leading-relaxed mb-3">
               I am your dedicated <strong>IC 2026 Rooming Assistant</strong>. You can ask me how to handle situations at the front desk, check hotel room rates and policies for <strong>Century Park Hotel</strong> and <strong>Networld Hotel</strong>, check-in/out rules, and our official protocol.
             </p>
+            <div class="mb-3 p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 text-xs flex items-start gap-2 shadow-2xs">
+              <i class="fa-solid fa-triangle-exclamation text-amber-700 mt-0.5 flex-shrink-0"></i>
+              <div>
+                <strong>Confidential Disclaimer:</strong> This app can be used <u>only for Local Rooming volunteers</u> and <u>cannot be shared with anyone</u>.
+              </div>
+            </div>
             <div class="text-xs font-medium text-slate-500 mb-2">Frequently Asked by Volunteers:</div>
             <div class="flex flex-wrap gap-1.5">
               <button onclick="quickPrompt('A delegate says the hotel cannot find their reservation. What should I do?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
@@ -231,9 +256,9 @@
             <i class="fa-solid fa-paper-plane text-xs"></i>
           </button>
         </form>
-        <div class="flex items-center justify-between mt-2 px-1 text-[11px] text-slate-400">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mt-2 px-1 text-[11px] text-slate-400">
           <span>Remember: <em>"Care for the person—not just the rooming concern."</em></span>
-          <span>Reporting line: Volunteer &rarr; Keyman &rarr; Asst. Overseer</span>
+          <span class="text-amber-700 font-medium flex items-center gap-1"><i class="fa-solid fa-lock text-[10px]"></i> Local Rooming Volunteers Only • Do Not Share</span>
         </div>
       </div>
     </section>
@@ -893,6 +918,26 @@
         <p class="text-sm text-slate-600">What every Rooming Volunteer MUST ALWAYS and NEVER do.</p>
       </div>
 
+      <!-- App Confidentiality & Usage Disclaimer Banner -->
+      <div class="p-4 rounded-xl border border-amber-300 bg-amber-50/90 text-amber-950 space-y-2.5 shadow-2xs">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2 text-amber-900 font-bold text-sm">
+            <i class="fa-solid fa-lock text-amber-700"></i>
+            <span>App Confidentiality &amp; Usage Disclaimer</span>
+          </div>
+          <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded border border-amber-300">
+            Internal Volunteer Use Only
+          </span>
+        </div>
+        <p class="text-xs text-amber-900 leading-relaxed">
+          This application is intended <strong>strictly and exclusively for appointed IC 2026 Local Rooming Volunteers</strong>. The internal protocols, contract rates, and lines of reporting contained here are confidential.
+        </p>
+        <div class="bg-white/90 p-2.5 rounded-lg border border-amber-200 text-xs font-bold text-rose-700 flex items-center gap-2">
+          <i class="fa-solid fa-ban text-rose-600 text-sm flex-shrink-0"></i>
+          <span>STRICT RULE: This app can be used only for Local Rooming volunteers and cannot be shared with anyone.</span>
+        </div>
+      </div>
+
       <!-- ALWAYS vs NEVER Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- ALWAYS Card -->
@@ -959,6 +1004,10 @@
             <li class="flex items-start gap-2">
               <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
               <span><strong>NEVER disclose confidential delegate information</strong> or show rooming sheets to third parties.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
+              <span><strong>NEVER share or forward this application</strong> or its contents to anyone outside the Local Rooming team.</span>
             </li>
             <li class="flex items-start gap-2">
               <i class="fa-solid fa-circle-xmark text-rose-600 mt-0.5"></i>
@@ -1076,6 +1125,14 @@
 
   </main>
 
+  <!-- ================= COMPACT FOOTER DISCLAIMER ================= -->
+  <footer class="bg-slate-900 text-slate-400 text-[11px] py-2 px-4 text-center border-t border-slate-800 flex-shrink-0 flex items-center justify-center gap-2">
+    <i class="fa-solid fa-lock text-amber-400 text-xs"></i>
+    <span>
+      <strong class="text-slate-300">Confidential Disclaimer:</strong> This app can be used only for Local Rooming volunteers and cannot be shared with anyone.
+    </span>
+  </footer>
+
   <!-- ================= JAVASCRIPT LOGIC & KNOWLEDGE BASE ================= -->
   <script>
     // Knowledge Base context derived directly from uploaded notebook slides & hotel contracts
@@ -1084,6 +1141,11 @@ YOU ARE THE IC 2026 ROOMING VOLUNTEER ASSISTANT.
 YOUR ROLE:
 Assist Rooming volunteers during the 2026 International Convention of Jehovah's Witnesses in Pasay City / Metro Manila, Philippines.
 All answers must strictly align with the IC 2026 Rooming Volunteer Training Notebook and official Hotel Contracts (Century Park Hotel & Networld Hotel).
+
+APP CONFIDENTIALITY & USAGE DISCLAIMER:
+- This application can be used ONLY for authorized Local Rooming volunteers.
+- It CANNOT be shared, forwarded, or distributed to anyone (including delegates, hotel staff, friends, family, or other departments).
+- When asked if this tool or link can be shared, always clearly state: "This app can be used only for Local Rooming volunteers and cannot be shared with anyone."
 
 CORE DIRECTIVES & SPIRIT:
 - Care for the person, not just the rooming concern.
@@ -1169,6 +1231,13 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
     function findOfflineAnswer(query) {
       const q = query.toLowerCase();
 
+      if (q.includes('share') || q.includes('disclaimer') || q.includes('who can use') || q.includes('can i send') || q.includes('forward') || q.includes('can we share')) {
+        return "**App Confidentiality & Usage Disclaimer:**\n\n" +
+               "🔒 **Strictly for Local Rooming Volunteers Only:**\n" +
+               "This application can be used **only for Local Rooming volunteers** and **cannot be shared with anyone**.\n\n" +
+               "• **Do Not Share:** Please do NOT send or forward this link, app, or internal guidelines to delegates, hotel personnel, friends, family, or anyone outside the assigned Rooming volunteer team.\n" +
+               "• All hotel room assignments, negotiated contract rates, and contacts are strictly confidential.";
+      }
       if (q.includes('reggie') || q.includes('aguinaldo') || q.includes('bognot') || q.includes('keyman') || (q.includes('assistant') && q.includes('overseer'))) {
         return "**Hotel Leadership & Rooming Contacts (Century Park Hotel & Networld Hotel):**\n\n" +
                "• **Keyman (Hotel Coordinator):** Reggie Aguinaldo\n" +
@@ -1276,7 +1345,11 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
           </div>
           <div class="bg-slate-100 text-slate-800 chat-bubble-assistant p-4 shadow-sm border border-slate-200">
             <p class="font-semibold text-slate-900 mb-1">Chat history refreshed.</p>
-            <p class="text-slate-700 leading-relaxed text-xs">How can I assist you with your Rooming desk assignment right now?</p>
+            <p class="text-slate-700 leading-relaxed text-xs mb-2">How can I assist you with your Rooming desk assignment right now?</p>
+            <div class="p-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-950 text-[11px] flex items-center gap-1.5 font-medium">
+              <i class="fa-solid fa-lock text-amber-700"></i>
+              <span>Confidential: This app can be used only for Local Rooming volunteers and cannot be shared with anyone.</span>
+            </div>
           </div>
         </div>
       `;
@@ -1388,6 +1461,7 @@ GUIDANCE RULES:
 3. Firmly remind volunteers NEVER to make independent promises, never reassign rooms alone, never promise early/late check-in, and never share confidential delegate room information.
 4. When asked about Century Park Hotel or Networld Hotel, cite exact rates, room categories, check-in times, breakfast details, penalties (e.g. Century Park Php 20k balcony fine), and assigned leadership: Keyman: Reggie Aguinaldo; Assistant Overseer: Mark Bognot.
 5. Keep explanations direct, practical, and structured with bullet points where appropriate.
+6. Strictly emphasize that this app can be used ONLY for appointed Local Rooming volunteers and CANNOT be shared with anyone (including delegates, other volunteers, or hotel staff).
 `;
 
       const payload = {
