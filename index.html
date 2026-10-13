@@ -156,7 +156,7 @@
           <i class="fa-solid fa-triangle-exclamation"></i> 8 Scenarios Guide
         </button>
         <button onclick="switchTab('hotels')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
-          <i class="fa-solid fa-building"></i> Hotel Policies (Century Park & Networld)
+          <i class="fa-solid fa-building"></i> Hotel Policies (5 Contracted Hotels)
         </button>
         <button onclick="switchTab('org')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
           <i class="fa-solid fa-sitemap"></i> Organization & Contacts
@@ -207,7 +207,7 @@
                 Ready
               </span>
             </h2>
-            <p class="text-xs text-slate-500">Trained on IC 2026 Rooming Handbook, Century Park & Networld Policies</p>
+            <p class="text-xs text-slate-500">Trained on IC 2026 Handbook & 5 Contracted Hotels (Century, Networld, Lime, lyf, Citadines)</p>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -230,7 +230,7 @@
               <span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded font-normal">Col. 3:23, 24</span>
             </p>
             <p class="text-slate-700 leading-relaxed mb-3">
-              I am your dedicated <strong>IC 2026 Rooming Assistant</strong>. You can ask me how to handle situations at the front desk, check hotel room rates and policies for <strong>Century Park Hotel</strong> and <strong>Networld Hotel</strong>, check-in/out rules, and our official protocol.
+              I am your dedicated <strong>IC 2026 Rooming Assistant</strong>. You can ask me how to handle situations at the front desk, check hotel room rates and policies for our 5 contracted hotels (<strong>Century Park</strong>, <strong>Networld</strong>, <strong>Lime Resort</strong>, <strong>lyf Malate</strong>, and <strong>Citadines Benavidez</strong>), check-in/out rules, and official protocol.
             </p>
             <div class="mb-3 p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 text-xs flex items-start gap-2 shadow-2xs">
               <i class="fa-solid fa-triangle-exclamation text-amber-700 mt-0.5 flex-shrink-0"></i>
@@ -244,19 +244,28 @@
                 🔍 Missing reservation
               </button>
               <button onclick="quickPrompt('What are the JW room rates and breakfast inclusion for Century Park Hotel?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
-                🏨 Century Park Rates & Breakfast
+                🏨 Century Park Rates
+              </button>
+              <button onclick="quickPrompt('What are Networld Hotel\'s room rates, shuttle, and check-in/check-out times?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                🚗 Networld Rates & Shuttle
+              </button>
+              <button onclick="quickPrompt('What are the room rates, buffet inclusions, and 10 PM visitor policy for Lime Resort Manila?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                🌊 Lime Resort Rates & 10 PM Visitor Rule
+              </button>
+              <button onclick="quickPrompt('What are lyf Malate Manila rates, social spaces, and organizers helpdesk table?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                🏢 lyf Malate & Helpdesk Desk
+              </button>
+              <button onclick="quickPrompt('What are Citadines Benavidez Makati rates, water dispenser amenity, and parking?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                🏙️ Citadines Benavidez & Water Dispenser
               </button>
               <button onclick="quickPrompt('Can I change a delegate\'s room assignment if they are unhappy with the twin bed?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
                 ⚠️ Can I change their room?
               </button>
-              <button onclick="quickPrompt('What are Networld Hotel\'s room rates, shuttle, and check-in/check-out times?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
-                🚗 Networld Hotel Details & Shuttle
-              </button>
               <button onclick="quickPrompt('Someone is asking for a delegate\'s hotel room number. May I give it?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
                 🔒 Privacy & Room Inquiry
               </button>
-              <button onclick="quickPrompt('Who is the Keyman and Assistant Overseer for Century Park Hotel and Networld Hotel?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
-                👤 Keyman & Asst. Overseer
+              <button onclick="quickPrompt('Who are the Keymen and Assistant Overseer for our 5 contracted hotels?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                👤 Hotel Keymen & Overseer
               </button>
             </div>
           </div>
@@ -556,9 +565,12 @@
           <h2 class="text-xl font-bold text-slate-800">Hotel Accommodations</h2>
           <p class="text-sm text-slate-600">Rates, cancellation rules, check-in schedules, and special terms for IC 2026.</p>
         </div>
-        <div class="flex items-center gap-2">
-          <button onclick="showHotelCard('century')" id="btn-show-century" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white shadow">Century Park Hotel</button>
-          <button onclick="showHotelCard('networld')" id="btn-show-networld" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">Networld Hotel</button>
+        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          <button onclick="showHotelCard('century')" id="btn-show-century" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white shadow">Century Park</button>
+          <button onclick="showHotelCard('networld')" id="btn-show-networld" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">Networld</button>
+          <button onclick="showHotelCard('lime')" id="btn-show-lime" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">Lime Resort</button>
+          <button onclick="showHotelCard('lyf')" id="btn-show-lyf" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">lyf Malate</button>
+          <button onclick="showHotelCard('citadines')" id="btn-show-citadines" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">Citadines Benavidez</button>
         </div>
       </div>
 
@@ -576,6 +588,7 @@
             <div class="text-xs text-blue-200 font-medium">Blocked Rooms</div>
             <div class="text-2xl font-black text-white">250 <span class="text-xs font-normal">rooms/night</span></div>
             <div class="text-[11px] text-blue-200">Oct 25 – Nov 3, 2026</div>
+            <div class="text-[11px] text-amber-300 font-semibold mt-0.5"><i class="fa-solid fa-calendar-xmark mr-1"></i> Cut-off: Oct 17, 2026</div>
           </div>
         </div>
 
@@ -667,7 +680,7 @@
         <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-start gap-2">
           <i class="fa-solid fa-circle-info text-amber-600 mt-0.5"></i>
           <div>
-            <strong>Cancellation Policy (Century Park):</strong> 14+ days prior = full refund of 1-night deposit. 7 days prior = 50% fee. Within 6 days = non-refundable. Exception: Medical emergencies with documented proof (per contract clause VI / CO-81).
+            <strong>Cut-off & Cancellation Policy (Century Park):</strong> <strong>Room Cut-Off Date: October 17, 2026</strong>. Cancellation 14+ days prior = full refund of 1-night deposit. 7 days prior = 50% fee. Within 6 days = non-refundable. Exception: Medical emergencies with documented proof (per contract clause VI / CO-81).
           </div>
         </div>
       </div>
@@ -686,6 +699,7 @@
             <div class="text-xs text-slate-300 font-medium">Blocked Rooms</div>
             <div class="text-2xl font-black text-white">73 <span class="text-xs font-normal">rooms/night</span></div>
             <div class="text-[11px] text-slate-300">Oct 25 – Nov 4, 2026</div>
+            <div class="text-[11px] text-amber-300 font-semibold mt-0.5"><i class="fa-solid fa-calendar-xmark mr-1"></i> Cut-off: Sept 25, 2026</div>
           </div>
         </div>
 
@@ -721,6 +735,7 @@
                 <th class="py-3 px-4">Room Type</th>
                 <th class="py-3 px-4">Bed Type</th>
                 <th class="py-3 px-4">Special Selling Rate</th>
+                <th class="py-3 px-4">Rooms Blocked</th>
                 <th class="py-3 px-4">Occupancy</th>
                 <th class="py-3 px-4">Inclusions</th>
               </tr>
@@ -730,6 +745,7 @@
                 <td class="py-3 px-4 font-semibold text-slate-900">Standard</td>
                 <td class="py-3 px-4">Single Size Bed</td>
                 <td class="py-3 px-4 font-bold text-emerald-700">Php 2,300.00 net</td>
+                <td class="py-3 px-4 font-medium">13 Rooms</td>
                 <td class="py-3 px-4">Good for 1 person</td>
                 <td class="py-3 px-4 text-slate-600">Daily buffet breakfast, welcome drink, bottled water</td>
               </tr>
@@ -737,6 +753,7 @@
                 <td class="py-3 px-4 font-semibold text-slate-900">Deluxe</td>
                 <td class="py-3 px-4">Queen Size Bed</td>
                 <td class="py-3 px-4 font-bold text-emerald-700">Php 2,800.00 net</td>
+                <td class="py-3 px-4 font-medium">28 Rooms</td>
                 <td class="py-3 px-4">Good for 2 persons</td>
                 <td class="py-3 px-4 text-slate-600">Buffet breakfast for 2, free internet</td>
               </tr>
@@ -744,6 +761,7 @@
                 <td class="py-3 px-4 font-semibold text-slate-900">Executive</td>
                 <td class="py-3 px-4">2 Twin Beds</td>
                 <td class="py-3 px-4 font-bold text-emerald-700">Php 3,600.00 net</td>
+                <td class="py-3 px-4 font-medium">14 Rooms</td>
                 <td class="py-3 px-4">Good for 2 persons</td>
                 <td class="py-3 px-4 text-slate-600">Buffet breakfast for 2, free internet</td>
               </tr>
@@ -751,6 +769,7 @@
                 <td class="py-3 px-4 font-semibold text-slate-900">Super Deluxe</td>
                 <td class="py-3 px-4">King Size Bed</td>
                 <td class="py-3 px-4 font-bold text-emerald-700">Php 3,700.00 net</td>
+                <td class="py-3 px-4 font-medium">8 Rooms</td>
                 <td class="py-3 px-4">Good for 2 persons</td>
                 <td class="py-3 px-4 text-slate-600">Buffet breakfast for 2, free internet</td>
               </tr>
@@ -758,6 +777,7 @@
                 <td class="py-3 px-4 font-semibold text-slate-900">Royal</td>
                 <td class="py-3 px-4">2 Twin Beds</td>
                 <td class="py-3 px-4 font-bold text-emerald-700">Php 3,800.00 net</td>
+                <td class="py-3 px-4 font-medium">6 Rooms</td>
                 <td class="py-3 px-4">Good for 2 persons</td>
                 <td class="py-3 px-4 text-slate-600">Buffet breakfast for 2, free internet</td>
               </tr>
@@ -794,6 +814,385 @@
           </div>
         </div>
       </div>
+
+      <!-- Lime Resort Manila Details -->
+      <div id="card-lime" class="space-y-6 hidden">
+        <div class="bg-gradient-to-r from-teal-900 to-cyan-900 text-white p-5 rounded-2xl shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-semibold uppercase text-cyan-300 tracking-wide">Manila Bayfront Resorts Inc.</div>
+            <h3 class="text-xl font-bold">Lime Resort Manila (Pasay City)</h3>
+            <p class="text-xs text-cyan-100 mt-1">
+              <i class="fa-solid fa-location-dot mr-1"></i> Atang Dela Rama St., Seascape Village, CCP Complex, Pasay City | <i class="fa-solid fa-phone ml-2 mr-1"></i> (63) 970 111 1117 / 0967 400 0600
+            </p>
+            <p class="text-[11px] text-cyan-200 mt-0.5">
+              <i class="fa-solid fa-address-book mr-1"></i> Contacts: Jeffrey Camilon (Sales Mgr, 09152819471) / John Herrera (Resident Mgr)
+            </p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-xs p-3 rounded-xl border border-white/20 text-center">
+            <div class="text-xs text-cyan-200 font-medium">Blocked Rooms</div>
+            <div class="text-2xl font-black text-white">195 <span class="text-xs font-normal">rooms/night</span></div>
+            <div class="text-[11px] text-cyan-200">Oct 25 – Nov 3, 2026</div>
+            <div class="text-[11px] text-amber-300 font-semibold mt-0.5"><i class="fa-solid fa-calendar-xmark mr-1"></i> Cut-off: Sept 25, 2026</div>
+          </div>
+        </div>
+
+        <!-- Rooming Leadership & Oversight for Lime Resort -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-teal-50/80 border border-teal-200 rounded-xl p-3.5 text-xs shadow-2xs">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-teal-800 block">Keyman (Hotel Coordinator)</span>
+              <span class="text-sm font-extrabold text-slate-900">Moses Baswel</span>
+              <span class="text-[11px] text-slate-500 block">Direct contact for Lime Resort front desk volunteers</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 block">Assistant Overseer</span>
+              <span class="text-sm font-extrabold text-slate-900">Mark Bognot</span>
+              <span class="text-[11px] text-slate-500 block">Supervises Lime Resort Manila Rooming operations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lime Resort Rates Table -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-2xs">
+          <table class="min-w-full text-xs text-left">
+            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3 px-4">Room Category</th>
+                <th class="py-3 px-4">JW Special Rate</th>
+                <th class="py-3 px-4">Published Rate</th>
+                <th class="py-3 px-4">Rooms Blocked</th>
+                <th class="py-3 px-4">Inclusions & Amenities</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white text-slate-700">
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Standard Twin (No View)</td>
+                <td class="py-3 px-4 font-bold text-teal-700">PHP 3,150.00</td>
+                <td class="py-3 px-4 text-slate-400 line-through">PHP 7,000.00</td>
+                <td class="py-3 px-4 font-medium">30 Rooms</td>
+                <td class="py-3 px-4 text-slate-600">2 Buffet breakfasts/room night, coffee/tea, replenished bottled water, Wi-Fi</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Deluxe Twin Bayview</td>
+                <td class="py-3 px-4 font-bold text-teal-700">PHP 3,825.00</td>
+                <td class="py-3 px-4 text-slate-400 line-through">PHP 8,500.00</td>
+                <td class="py-3 px-4 font-medium">150 Rooms</td>
+                <td class="py-3 px-4 text-slate-600">Manila Bay view, 2 Buffet breakfasts/room night, coffee/tea, mineral water, Wi-Fi</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Executive King Bayview</td>
+                <td class="py-3 px-4 font-bold text-teal-700">PHP 5,400.00</td>
+                <td class="py-3 px-4 text-slate-400 line-through">PHP 12,000.00</td>
+                <td class="py-3 px-4 font-medium">5 Rooms</td>
+                <td class="py-3 px-4 text-slate-600">King bed Bayview, 2 Buffet breakfasts/room night, coffee/tea & water, Wi-Fi</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Premier King Suite</td>
+                <td class="py-3 px-4 font-bold text-teal-700">PHP 6,750.00</td>
+                <td class="py-3 px-4 text-slate-400 line-through">PHP 15,000.00</td>
+                <td class="py-3 px-4 font-medium">10 Rooms</td>
+                <td class="py-3 px-4 text-slate-600">Premier King Suite, 2 Buffet breakfasts/room night, premium amenities, Wi-Fi</td>
+              </tr>
+              <tr class="bg-slate-50 font-medium">
+                <td class="py-2.5 px-4 text-slate-800">Additional Adult Charge</td>
+                <td class="py-2.5 px-4 font-bold text-teal-700" colspan="4">PHP 2,000.00 nett per person / night</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Key Policy Points for Lime Resort -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-regular fa-clock text-teal-600"></i> Check-in / Out & Facilities</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Check-in:</strong> 3:00 PM</li>
+              <li><strong>Check-out:</strong> 12:00 NN</li>
+              <li><strong>Facilities:</strong> Infinity pool, fitness gym, free high-speed Wi-Fi.</li>
+              <li><strong>Parking:</strong> Complimentary parking (first-come, first-served basis).</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-rose-200 bg-rose-50/60">
+            <h4 class="font-bold text-rose-900 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-rose-600"></i> Strict Visitor Policy & Children</h4>
+            <ul class="space-y-1.5 text-slate-700">
+              <li><strong class="text-rose-700">STRICT VISITOR RULE:</strong> Visitors allowed until <strong>10:00 PM ONLY!</strong> Non-registered visitors must leave by 10 PM.</li>
+              <li><strong>Children 0–5 yrs:</strong> Stay free sharing existing bed with parents.</li>
+              <li><strong>Guest Security:</strong> All outside visitors must present valid ID at the lobby front desk.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-utensils text-teal-600"></i> Bayside Buffet & Payment</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Breakfast Inclusions:</strong> 2 Buffet breakfasts per room night included in room rate.</li>
+              <li><strong>Lunch Buffet:</strong> PHP 1,049 (weekdays) / PHP 1,364 (weekends).</li>
+              <li><strong>Dinner Buffet:</strong> PHP 1,154 (weekdays) / PHP 1,364 (weekends).</li>
+              <li><strong>Bank Account:</strong> BDO Acct #010368010708 (Manila Bayfront Resorts Inc).</li>
+              <li><strong>Cancellation:</strong> Less than 1 month before check-in is strictly non-refundable.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- lyf Malate Manila Details -->
+      <div id="card-lyf" class="space-y-6 hidden">
+        <div class="bg-gradient-to-r from-amber-800 to-orange-950 text-white p-5 rounded-2xl shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-semibold uppercase text-amber-300 tracking-wide">Torre Lorenzo Development Corp. / The Ascott Limited</div>
+            <h3 class="text-xl font-bold">lyf Malate Manila (Malate, Manila)</h3>
+            <p class="text-xs text-amber-100 mt-1">
+              <i class="fa-solid fa-location-dot mr-1"></i> Malvar corner Vasquez Street, Malate, Manila | <i class="fa-solid fa-phone ml-2 mr-1"></i> +632 7793 9593
+            </p>
+            <p class="text-[11px] text-amber-200 mt-0.5">
+              <i class="fa-solid fa-address-book mr-1"></i> Contacts: Angelbert Data (Asst. Director of Sales, 0966 015 6978) / Joycelyn Agsaway
+            </p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-xs p-3 rounded-xl border border-white/20 text-center">
+            <div class="text-xs text-amber-200 font-medium">Blocked Rooms</div>
+            <div class="text-2xl font-black text-white">134 <span class="text-xs font-normal">rooms/night</span></div>
+            <div class="text-[11px] text-amber-200">Oct 25 – Nov 4, 2026 (10 nights)</div>
+            <div class="text-[11px] text-amber-300 font-semibold mt-0.5"><i class="fa-solid fa-gift mr-1"></i> 130 Blocked + 4 Concessions</div>
+          </div>
+        </div>
+
+        <!-- Rooming Leadership & Oversight for lyf Malate -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-amber-50/80 border border-amber-200 rounded-xl p-3.5 text-xs shadow-2xs">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block">Keyman (Hotel Coordinator)</span>
+              <span class="text-sm font-extrabold text-slate-900">Dindo Ballecer</span>
+              <span class="text-[11px] text-slate-500 block">Direct contact for lyf Malate front desk volunteers</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 block">Assistant Overseer</span>
+              <span class="text-sm font-extrabold text-slate-900">Mark Bognot</span>
+              <span class="text-[11px] text-slate-500 block">Supervises lyf Malate Manila Rooming operations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dedicated Organizer Helpdesk Highlight Banner -->
+        <div class="bg-amber-50 border border-amber-300 rounded-xl p-3.5 flex items-center gap-3 text-xs shadow-2xs">
+          <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block">Dedicated Convention Amenity</span>
+            <span class="text-sm font-extrabold text-slate-900">Dedicated Organizers' Helpdesk Table in CONNECT</span>
+            <span class="text-[11px] text-slate-600 block">The hotel has designated a dedicated area inside the <strong>CONNECT</strong> co-working space specifically for our Rooming volunteer helpdesk table.</span>
+          </div>
+        </div>
+
+        <!-- lyf Malate Rates Table -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-2xs">
+          <table class="min-w-full text-xs text-left">
+            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3 px-4">Room Category</th>
+                <th class="py-3 px-4">Bed Setup</th>
+                <th class="py-3 px-4">Special Selling Rate</th>
+                <th class="py-3 px-4">Rooms Blocked</th>
+                <th class="py-3 px-4">Inclusions & Amenities</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white text-slate-700">
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">One of a Kind</td>
+                <td class="py-3 px-4">Studio Queen Bed</td>
+                <td class="py-3 px-4 font-bold text-amber-700">Php 3,000.00 nett</td>
+                <td class="py-3 px-4" rowspan="2">130 Units Total (+ 4 Upgrade Concessions)</td>
+                <td class="py-3 px-4 text-slate-600">Daily buffet breakfast for 2, high-speed Wi-Fi, welcome amenities, bathroom amenities</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Side by Side</td>
+                <td class="py-3 px-4">Studio Twin Beds</td>
+                <td class="py-3 px-4 font-bold text-amber-700">Php 3,000.00 nett</td>
+                <td class="py-3 px-4 text-slate-600">Daily buffet breakfast for 2, high-speed Wi-Fi, welcome amenities, bathroom amenities</td>
+              </tr>
+              <tr class="bg-slate-50 font-medium">
+                <td class="py-2.5 px-4 text-slate-800">Extra Bed</td>
+                <td class="py-2.5 px-4 font-bold text-amber-700" colspan="4">Php 1,650.00 nett per night</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- lyf Malate Policies -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-regular fa-clock text-amber-600"></i> Check-in / Out & Children</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Check-in:</strong> 2:00 PM | <strong>Check-out:</strong> 12:00 PM</li>
+              <li><strong>Children 11 & below:</strong> Free room stay sharing existing bed.</li>
+              <li><strong>Child Breakfast:</strong>
+                <ul class="ml-3 mt-1 list-disc text-[11px] text-slate-600">
+                  <li>0–5 years: Free</li>
+                  <li>6–11 years: Php 225.00 nett</li>
+                  <li>12+ years: Php 450.00 nett</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-shapes text-amber-600"></i> Signature Social Spaces</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>CONNECT:</strong> Coworking space (venue for our Rooming helpdesk table).</li>
+              <li><strong>WASH & HANG:</strong> Launderette facilities.</li>
+              <li><strong>NOOK:</strong> Private quiet booths/pods.</li>
+              <li><strong>BURN:</strong> Social fitness gym.</li>
+              <li><strong>BOND:</strong> Social kitchen facility.</li>
+              <li><strong>HANG OUT:</strong> Outdoor terrace & dining lounge.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-car text-amber-600"></i> Airport Rates & Payment</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Optional Airport Transfers:</strong>
+                <ul class="ml-3 mt-1 list-disc text-[11px] text-slate-600">
+                  <li>Hybrid Altis / Cross: Php 2,400 nett/way</li>
+                  <li>Hybrid Innova: Php 3,000 nett/way</li>
+                  <li>Commuter Van: Php 3,400 nett/way</li>
+                </ul>
+              </li>
+              <li><strong>Bank Account:</strong> BPI Acct #2951002367.</li>
+              <li><strong>Payment Policy:</strong> Non-refundable payments per contract.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Citadines Benavidez Makati Details -->
+      <div id="card-citadines" class="space-y-6 hidden">
+        <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white p-5 rounded-2xl shadow flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-semibold uppercase text-indigo-300 tracking-wide">Legaspi Village Land Properties Inc. / The Ascott Limited</div>
+            <h3 class="text-xl font-bold">Citadines Benavidez Makati (Makati City)</h3>
+            <p class="text-xs text-indigo-100 mt-1">
+              <i class="fa-solid fa-location-dot mr-1"></i> 110 Benavidez Street, Legazpi Village, Makati City | <i class="fa-solid fa-phone ml-2 mr-1"></i> (632) 7744 9499
+            </p>
+            <p class="text-[11px] text-indigo-200 mt-0.5">
+              <i class="fa-solid fa-address-book mr-1"></i> Contacts: Joshua Anthony Samaniego (Sales Exec, 0920 248 7644) / Jose Ma. G. Montinola (Chairman/President)
+            </p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-xs p-3 rounded-xl border border-white/20 text-center">
+            <div class="text-xs text-indigo-200 font-medium">Blocked Units</div>
+            <div class="text-2xl font-black text-white">130 <span class="text-xs font-normal">units/night</span></div>
+            <div class="text-[11px] text-indigo-200">Oct 25 – Nov 4, 2026 (10 nights)</div>
+            <div class="text-[11px] text-amber-300 font-semibold mt-0.5"><i class="fa-solid fa-calendar-xmark mr-1"></i> Cut-off: August 31, 2026</div>
+          </div>
+        </div>
+
+        <!-- Rooming Leadership & Oversight for Citadines Benavidez -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-indigo-50/80 border border-indigo-200 rounded-xl p-3.5 text-xs shadow-2xs">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-800 block">Keyman (Hotel Coordinator)</span>
+              <span class="text-sm font-extrabold text-slate-900">Dindo Ballecer</span>
+              <span class="text-[11px] text-slate-500 block">Direct contact for Citadines Benavidez front desk volunteers</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-slate-800 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-900 block">Assistant Overseer</span>
+              <span class="text-sm font-extrabold text-slate-900">Mark Bognot</span>
+              <span class="text-[11px] text-slate-500 block">Supervises Citadines Benavidez Rooming operations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Special Water Amenity Banner -->
+        <div class="bg-blue-50 border border-blue-300 rounded-xl p-3.5 flex items-center gap-3 text-xs shadow-2xs">
+          <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
+            <i class="fa-solid fa-bottle-water"></i>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-800 block">Unit In-Room Water Perk</span>
+            <span class="text-sm font-extrabold text-slate-900">2.5 Gallons Purified Water with Table-Top Dispenser</span>
+            <span class="text-[11px] text-slate-600 block">Each unit is equipped with 2.5 gallons of purified drinking water with an in-room table-top dispenser upon arrival for delegates' hydration.</span>
+          </div>
+        </div>
+
+        <!-- Citadines Rates Table -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-2xs">
+          <table class="min-w-full text-xs text-left">
+            <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3 px-4">Room Category</th>
+                <th class="py-3 px-4">Bed Setup</th>
+                <th class="py-3 px-4">Contracted Rate</th>
+                <th class="py-3 px-4">Units Blocked</th>
+                <th class="py-3 px-4">Inclusions & Amenities</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white text-slate-700">
+              <tr>
+                <td class="py-3 px-4 font-semibold text-slate-900">Studio Deluxe Queen</td>
+                <td class="py-3 px-4">Queen Size Bed</td>
+                <td class="py-3 px-4 font-bold text-indigo-700">Php 5,500.00 nett</td>
+                <td class="py-3 px-4 font-medium">130 Units</td>
+                <td class="py-3 px-4 text-slate-600">Daily plated breakfast for 2, 2.5 gal table-top water dispenser, swimming pool, fitness center, daily housekeeping</td>
+              </tr>
+              <tr class="bg-slate-50 font-medium">
+                <td class="py-2.5 px-4 text-slate-800">Extra Bed</td>
+                <td class="py-2.5 px-4 font-bold text-indigo-700" colspan="4">PHP 1,650.00 nett per night (includes 1 complimentary breakfast)</td>
+              </tr>
+              <tr class="bg-emerald-50/60 font-medium text-emerald-900">
+                <td class="py-2.5 px-4">Group Concession</td>
+                <td class="py-2.5 px-4 font-bold text-emerald-800" colspan="4"><i class="fa-solid fa-gift mr-1"></i> 1 complimentary room per 20 paying rooms (1:20 ratio)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Citadines Policies -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-regular fa-clock text-indigo-600"></i> Check-in / Out & Facilities</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Check-in:</strong> 2:00 PM</li>
+              <li><strong>Check-out:</strong> 12:00 PM (Noon)</li>
+              <li><strong>Facilities:</strong> Rooftop swimming pool, fitness center, 24-hour reception, daily housekeeping service.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-square-parking text-indigo-600"></i> Parking & Children Policy</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Parking:</strong> Provision for 1 vehicle per unit on first-come, first-served basis (parking on 7th and 8th floor).</li>
+              <li><strong>Children 11 & below:</strong> Free room stay sharing existing bed with parents.</li>
+              <li><strong>Child Breakfast:</strong> Ages 0–3 free; Ages 4+ PHP 250.00 – 400.00 nett.</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i class="fa-solid fa-file-shield text-indigo-600"></i> Cut-off & Cancellation</h4>
+            <ul class="space-y-1.5 text-slate-600">
+              <li><strong>Contract Cut-off Date:</strong> <strong>August 31, 2026</strong>.</li>
+              <li><strong>Emergency Cancellation:</strong> Allowed up to 48 hours prior to arrival with valid documented medical or emergency reason.</li>
+              <li><strong>Management:</strong> The Ascott Limited / Legaspi Village Land Properties Inc.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ================= TAB 4: ORGANIZATION & ROLES ================= -->
@@ -818,7 +1217,7 @@
           <div class="bg-blue-600 text-white p-3 rounded-lg text-center flex-1 shadow-xs">
             <div class="font-bold">Keyman</div>
             <div class="text-[11px] text-blue-100">Hotel Coordinator</div>
-            <div class="text-[10px] text-blue-200 mt-0.5 font-semibold">Reggie Aguinaldo</div>
+            <div class="text-[10px] text-blue-200 mt-0.5 font-semibold">Reggie A. / Dindo B. / Moses B.</div>
           </div>
           <i class="fa-solid fa-arrow-right text-blue-400 rotate-90 sm:rotate-0"></i>
           <div class="bg-white p-3 rounded-lg border border-blue-200 text-center flex-1 shadow-2xs">
@@ -900,34 +1299,91 @@
       <div class="p-4 rounded-xl border border-indigo-200 bg-gradient-to-r from-blue-50/70 to-indigo-50/70 space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
           <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-            <i class="fa-solid fa-hotel text-blue-600"></i> Hotel Assignments (Century Park Hotel & Networld Hotel)
+            <i class="fa-solid fa-hotel text-blue-600"></i> Hotel Assignments & Leadership (5 Contracted Hotels)
           </h4>
           <span class="text-[11px] font-semibold text-indigo-700 bg-indigo-100/80 px-2.5 py-0.5 rounded-full border border-indigo-200 self-start sm:self-auto">
-            Hotel Rooming Team
+            Hotel Rooming Teams
           </span>
         </div>
         <p class="text-xs text-slate-600">
-          Volunteers stationed at the hotel information desks at Century Park Hotel and Networld Hotel report directly through this line of oversight:
+          Volunteers stationed at hotel information desks report directly through their assigned Keyman to Assistant Overseer <strong>Mark Bognot</strong>:
         </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div class="bg-white p-3.5 rounded-xl border border-blue-200 flex items-center gap-3.5 shadow-2xs">
-            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
-              <i class="fa-solid fa-user-tie"></i>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <!-- Century Park Hotel & Networld Hotel -->
+          <div class="bg-white p-3.5 rounded-xl border border-blue-200 space-y-3 shadow-2xs">
+            <div class="border-b border-blue-100 pb-1.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">Assigned Hotels</span>
+              <div class="font-bold text-slate-900 text-xs">Century Park Hotel & Networld Hotel</div>
             </div>
-            <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">Keyman (Hotel Coordinator)</span>
-              <div class="text-sm font-extrabold text-slate-900">Reggie Aguinaldo</div>
-              <span class="text-[11px] text-slate-500">Century Park Hotel & Networld Hotel</span>
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">Keyman (Hotel Coordinator)</span>
+                <span class="text-xs font-extrabold text-slate-900">Reggie Aguinaldo</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
+                <i class="fa-solid fa-user-shield"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 block">Assistant Overseer</span>
+                <span class="text-xs font-extrabold text-slate-900">Mark Bognot</span>
+              </div>
             </div>
           </div>
-          <div class="bg-white p-3.5 rounded-xl border border-indigo-200 flex items-center gap-3.5 shadow-2xs">
-            <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-base shadow-xs flex-shrink-0">
-              <i class="fa-solid fa-user-shield"></i>
+
+          <!-- lyf Malate Manila & Citadines Benavidez Makati -->
+          <div class="bg-white p-3.5 rounded-xl border border-amber-200 space-y-3 shadow-2xs">
+            <div class="border-b border-amber-100 pb-1.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700 block">Assigned Hotels</span>
+              <div class="font-bold text-slate-900 text-xs">lyf Malate & Citadines Benavidez</div>
             </div>
-            <div>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 block">Assistant Overseer</span>
-              <div class="text-sm font-extrabold text-slate-900">Mark Bognot</div>
-              <span class="text-[11px] text-slate-500">Century Park Hotel & Networld Hotel</span>
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-800 block">Keyman (Hotel Coordinator)</span>
+                <span class="text-xs font-extrabold text-slate-900">Dindo Ballecer</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
+                <i class="fa-solid fa-user-shield"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 block">Assistant Overseer</span>
+                <span class="text-xs font-extrabold text-slate-900">Mark Bognot</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lime Resort Manila -->
+          <div class="bg-white p-3.5 rounded-xl border border-teal-200 space-y-3 shadow-2xs">
+            <div class="border-b border-teal-100 pb-1.5">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-teal-700 block">Assigned Hotel</span>
+              <div class="font-bold text-slate-900 text-xs">Lime Resort Manila</div>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-teal-800 block">Keyman (Hotel Coordinator)</span>
+                <span class="text-xs font-extrabold text-slate-900">Moses Baswel</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
+                <i class="fa-solid fa-user-shield"></i>
+              </div>
+              <div>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 block">Assistant Overseer</span>
+                <span class="text-xs font-extrabold text-slate-900">Mark Bognot</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1166,7 +1622,12 @@
 YOU ARE THE IC 2026 ROOMING VOLUNTEER ASSISTANT.
 YOUR ROLE:
 Assist Rooming volunteers during the 2026 International Convention of Jehovah's Witnesses in Pasay City / Metro Manila, Philippines.
-All answers must strictly align with the IC 2026 Rooming Volunteer Training Notebook and official Hotel Policies (Century Park Hotel & Networld Hotel).
+All answers must strictly align with the IC 2026 Rooming Volunteer Training Notebook and official Hotel Policies for ALL 5 PROPERTIES:
+1. Century Park Hotel
+2. Networld Hotel Spa and Casino
+3. Lime Resort Manila (Manila Bayfront Resorts Inc.)
+4. lyf Malate Manila (Torre Lorenzo Development Corp. / The Ascott Limited)
+5. Citadines Benavidez Makati (Legaspi Village Land Properties Inc. / The Ascott Limited)
 
 APP CONFIDENTIALITY & USAGE DISCLAIMER:
 - This application can be used ONLY for authorized Local Rooming volunteers.
@@ -1176,7 +1637,7 @@ APP CONFIDENTIALITY & USAGE DISCLAIMER:
 CORE DIRECTIVES & SPIRIT:
 - Care for the person, not just the rooming concern.
 - Maintain modesty, kindness, mildness, order, and Christian conduct (Col 3:12; 1 Pet 4:9; 1 Cor 14:40).
-- LINE OF REPORTING: General Volunteer → Keyman / Hotel Coordinator → Assistant Overseer → Rooming Overseer.
+- LINE OF REPORTING: General Volunteer → Keyman / Hotel Coordinator → Rooming Department Assistant Overseer → Rooming Department Overseer.
 - Volunteers work WITH hotel personnel, not independently.
 - Volunteers NEVER independently change room assignments, bed configs, policies, charges, or promise early check-in / late checkout / upgrades.
 
@@ -1187,32 +1648,43 @@ ORGANIZATIONAL LEADERSHIP:
 - Convention Committee Coordinator: Angelito Co Jr.
 - Convention Committee Assistant Coordinators: Fernand "Benjie" Dizon, Angelo Capulla
 - Rooming Overseer: Jude Pambid
-- Rooming Assistant Overseers: Mark Bognot (Century Park Hotel & Networld Hotel), Elberg Pagad, Joseph Magpile, Ryan Torio, Hezron Elcano
+- Rooming Assistant Overseers: Elberg Pagad, Joseph Magpile
 - Rooming / Hospitality Department Overseer: Rey Barin
-- Hospitality Dept Assistant Overseer: Bonn Gavia
+- Rooming Department Assistant Overseers: Mark Bognot (Hotel Oversight for Century Park, Networld, Lime Resort, lyf Malate, Citadines Benavidez), Ryan Torio, Hezron Elcano
+- Hospitality Department Assistant Overseer: Bonn Gavia
 - Contract Representative / Negotiator: Ralph L. Balmaceda
 - Rooming Coordinators: Diomedes Arciaga Jr., Jonathan de Jesus
 - Meeting Planner: Stephen E. Zilavetz
 
-HOTEL ASSIGNMENTS & LEADERSHIP (CENTURY PARK & NETWORLD):
+HOTEL ASSIGNMENTS & LEADERSHIP:
 - Century Park Hotel:
   * Keyman (Hotel Coordinator): Reggie Aguinaldo
   * Assistant Overseer: Mark Bognot
 - Networld Hotel:
   * Keyman (Hotel Coordinator): Reggie Aguinaldo
   * Assistant Overseer: Mark Bognot
+- lyf Malate Manila:
+  * Keyman (Hotel Coordinator): Dindo Ballecer
+  * Assistant Overseer: Mark Bognot
+- Citadines Benavidez Makati:
+  * Keyman (Hotel Coordinator): Dindo Ballecer
+  * Assistant Overseer: Mark Bognot
+- Lime Resort Manila:
+  * Keyman (Hotel Coordinator): Moses Baswel
+  * Assistant Overseer: Mark Bognot
 
-CENTURY PARK HOTEL POLICIES:
+1. CENTURY PARK HOTEL (Malate, Manila):
 - Rooming Leadership:
   * Keyman (Hotel Coordinator): Reggie Aguinaldo
   * Assistant Overseer: Mark Bognot
 - Address: 599 P. Ocampo St., Malate, Manila. Phone: (632) 8528-8888. Contact: Jhenely Jazelle Tan.
 - Block Dates: October 25 to November 3, 2026 (250 rooms blocked/night).
+- Cut-off Date: October 17, 2026.
 - Room Rates:
   * Superior Room: Php 4,200.00 nett (Single/Twin), Php 5,500.00 nett (Triple) - 200 rooms blocked.
   * Deluxe Room: Php 5,200.00 nett (Single/Twin), Php 6,500.00 nett (Triple) - 50 rooms blocked.
   * Additional adult charge: Php 1,300.00 nett.
-- Amenities: Complimentary breakfast, daily mineral water replenishment, coffee/tea making.
+- Amenities: Complimentary breakfast buffet, daily mineral water replenishment, coffee/tea making.
 - Check-in: 2:00 PM | Check-out: 12:00 NN.
   * Early check-in before 12:00 NN considered preceding day charge. Late check-out after 4:00 PM is additional whole day.
 - Payment: Personal account of guest. 1 night guarantee deposit to secure; balance at check-in. Incidental deposit waived if no signing privileges requested.
@@ -1222,35 +1694,94 @@ CENTURY PARK HOTEL POLICIES:
   * Balcony doors: Strictly locked for safety. Attempting to open = Php 20,000.00 net fine per incident!
   * Children: 0-12 yrs stay free sharing beds with parents. Free parking: Yes. Pool: Yes.
 
-NETWORLD HOTEL (SPA & CASINO) POLICIES:
+2. NETWORLD HOTEL SPA AND CASINO (Pasay City):
 - Rooming Leadership:
   * Keyman (Hotel Coordinator): Reggie Aguinaldo
   * Assistant Overseer: Mark Bognot
 - Address: Roxas Blvd. cor Sen. Gil Puyat Ave., Pasay City. Phone: (632) 536-7777 loc 120. Contact: Alyannah Sarip Flavio.
 - Block Dates: October 25 to November 4, 2026 (73 rooms blocked/night).
-- Room Rates:
-  * Standard (Single Bed, 1 person): Php 2,300.00 net.
-  * Deluxe (Queen Bed, 2 persons): Php 2,800.00 net.
-  * Executive (2 Twin Beds, 2 persons): Php 3,600.00 net.
-  * Super Deluxe (King Bed, 2 persons): Php 3,700.00 net.
-  * Royal (2 Twin Beds, 2 persons): Php 3,800.00 net.
-  * Extra bed: Php 800.00 net with buffet breakfast.
-- Amenities: Welcome drink, daily buffet breakfast, daily bottled water, free Wi-Fi, airport transfer based on schedule, FREE DAILY DROP-OFF TO SMX CONVENTION CENTER / WORLD TRADE CENTER (prior reservation required).
+- Cut-off Date: September 25, 2026.
+- Room Rates & Block Breakdown:
+  * Standard (Single Bed, 1 person): Php 2,300.00 net - 13 rooms.
+  * Deluxe (Queen Bed, 2 persons): Php 2,800.00 net - 28 rooms.
+  * Executive (2 Twin Beds, 2 persons): Php 3,600.00 net - 14 rooms.
+  * Super Deluxe (King Bed, 2 persons): Php 3,700.00 net - 8 rooms.
+  * Royal (2 Twin Beds, 2 persons): Php 3,800.00 net - 6 rooms.
+  * Extra bed: Php 800.00 net with breakfast.
+- Special Perk: Free daily drop-off to SMX Convention Center / World Trade Center (prior reservation required). Airport transfer on hotel schedule. Complimentary parking.
 - Check-in: 3:00 PM | Check-out: 12:00 NN.
   * Housekeeping/Cleaning: Accommodated until 11:00 AM (guests must vacate before 11:00 AM for cleaning).
   * Late checkout: 12 NN to 6:00 PM = half-day charge; after 6:00 PM = full day charge.
 - Family Plan: Children 12 and below sharing room/beds are free; half price buffet breakfast. Children 7 and below extra bed free.
 - Cancellation: Postponement allowed within 72 hours if rooms available.
 
+3. LIME RESORT MANILA (Manila Bayfront Resorts Inc., Pasay City):
+- Rooming Leadership:
+  * Keyman (Hotel Coordinator): Moses Baswel
+  * Assistant Overseer: Mark Bognot
+- Address: Atang Dela Rama St., Seascape Village, CCP Complex, Pasay City.
+- Contacts: Jeffrey Camilon (Sales Mgr, 09152819471) / John Herrera (Resident Mgr). Phone: (63) 970 111 1117 / 0967 400 0600.
+- Block Dates: October 25 to November 3, 2026 (195 rooms blocked/night).
+- Cut-off Date: September 25, 2026.
+- Room Rates & Block Breakdown:
+  * Standard Twin (No View): PHP 3,150.00 nett (Published PHP 7,000) - 30 rooms.
+  * Deluxe Twin Bayview: PHP 3,825.00 nett (Published PHP 8,500) - 150 rooms.
+  * Executive King Bayview: PHP 5,400.00 nett (Published PHP 12,000) - 5 rooms.
+  * Premier King Suite: PHP 6,750.00 nett (Published PHP 15,000) - 10 rooms.
+  * Additional adult charge: PHP 2,000.00 nett.
+- Amenities & Inclusions: 2 Breakfast buffet per room night, coffee & complimentary water, gym, infinity pool, free Wi-Fi, free parking (first-come first-served).
+- Check-in: 3:00 PM | Check-out: 12:00 NN.
+- Strict Rules & Security: Visitors allowed until 10:00 PM ONLY! Children 0–5 yrs stay free.
+- Bayside Buffet Rates: Lunch PHP 1,049 weekdays / PHP 1,364 weekends; Dinner PHP 1,154 weekdays / PHP 1,364 weekends.
+- Payment & Policy: BDO Account #010368010708 (Manila Bayfront Resorts Inc). Cancellations < 1 month non-refundable.
+
+4. LYF MALATE MANILA (Torre Lorenzo Development Corp. / The Ascott Limited):
+- Rooming Leadership:
+  * Keyman (Hotel Coordinator): Dindo Ballecer
+  * Assistant Overseer: Mark Bognot
+- Address: Malvar corner Vasquez Street, Malate, Manila. Phone: +632 7793 9593.
+- Contacts: Angelbert Data (Asst. Director of Sales, 0966 015 6978) / Joycelyn Agsaway.
+- Block Dates: October 25 to November 4, 2026 (10 nights, 134 rooms/night: 130 One of a Kind / Side by Side + 4 concession upgrades).
+- Room Rates:
+  * One of a Kind (Studio Queen): Php 3,000.00 nett/night/room.
+  * Side by Side (Studio Twin): Php 3,000.00 nett/night/room.
+  * Extra Bed: Php 1,650.00 nett/night.
+- Inclusions: Welcome amenities, daily buffet breakfast for 2, Wi-Fi, bathroom amenities.
+- Signature Social Spaces: CONNECT (coworking), WASH & HANG (launderette), NOOK (private quiet pods), BURN (social gym), BOND (social kitchen), HANG OUT (outdoor dining).
+- DEDICATED PERK: Dedicated area in CONNECT (co-working space) for organizers' helpdesk table!
+- Check-in: 2:00 PM | Check-out: 12:00 PM.
+- Children Policy: Children 11 and below free room. Breakfast: 0–5 free, 6–11 Php 225 nett, 12+ Php 450 nett.
+- Optional Airport Transfer Rates: Hybrid Altis/Cross Php 2,400 nett; Hybrid Innova Php 3,000 nett; Van Php 3,400 nett per car/way.
+- Payment & Cancellation: BPI Account #2951002367. Non-refundable payments.
+
+5. CITADINES BENAVIDEZ MAKATI (Legaspi Village Land Properties Inc. / The Ascott Limited):
+- Rooming Leadership:
+  * Keyman (Hotel Coordinator): Dindo Ballecer
+  * Assistant Overseer: Mark Bognot
+- Address: 110 Benavidez Street, Legazpi Village, Makati City. Phone: (632) 7744 9499.
+- Contacts: Joshua Anthony Samaniego (Sales Exec, 0920 248 7644) / Jose Ma. G. Montinola (Chairman/President).
+- Block Dates: October 25 to November 4, 2026 (10 nights). 130 units blocked.
+- Cut-off Date: August 31, 2026.
+- Room Rates:
+  * Studio Deluxe Queen (130 units): Php 5,500.00 nett per unit per night.
+  * Extra Bed: PHP 1,650.00 nett/night with 1 complimentary breakfast.
+  * Group Concession: 1 complimentary room per 20 paying rooms.
+- Inclusions & Amenities: Welcome amenities, daily plated breakfast for 2, swimming pool, fitness center, daily housekeeping.
+- SPECIAL IN-ROOM AMENITY: 2.5 gallons of purified water with table-top dispenser upon arrival inside unit!
+- Parking: Provision for 1 vehicle per unit on first-come first-served basis (7th and 8th floor).
+- Check-in: 2:00 PM | Check-out: 12:00 PM.
+- Children Policy: Children 11 and below free room stay. Breakfast: 0–3 free; 4+ PHP 250–400 nett.
+- Cancellation: 48 hours prior with valid medical/emergency reason.
+
 8 SCENARIO RESPONSES (MODULE 5):
-1. Missing Reservation: Listen calmly, gather booking details, inform Keyman (Reggie Aguinaldo), wait for verification. Do not promise rooms or rebook.
-2. Incorrect Assignment: Verify details, record concern, inform Keyman (Reggie Aguinaldo) / Assistant Overseer (Mark Bognot), follow confirmed arrangement. Never change room yourself.
-3. Tired & Frustrated Delegate: Listen patiently, speak kindly, reassure that assistance is being sought, inform Keyman (Reggie Aguinaldo). Do not argue or become defensive.
-4. Hotel Reports Discrepancy: Note discrepancy, inform Keyman (Reggie Aguinaldo), wait while records are verified. Do not negotiate with hotel alone or decide which list is right.
-5. Delegate Requests Room Change: Inquire reason respectfully, inform Keyman (Reggie Aguinaldo) to verify if approved adjustment is possible. Never promise or contact other hotels yourself.
-6. Urgent Lodging / Safety: Take seriously, get facts, alert Keyman (Reggie Aguinaldo) immediately, coordinate with Assistant Overseer (Mark Bognot).
-7. Last-Minute Arrival: Welcome calmly, collect info, notify Keyman (Reggie Aguinaldo) to check established process. Do not guarantee lodging.
-8. Confidential Info Request: Politely decline to provide room numbers or hotel assignments. Protect privacy. Refer to Keyman (Reggie Aguinaldo).
+1. Missing Reservation: Listen calmly, gather booking details, inform assigned Keyman (Reggie Aguinaldo / Dindo Ballecer / Moses Baswel), wait for verification. Do not promise rooms or rebook.
+2. Incorrect Assignment: Verify details, record concern, inform assigned Keyman / Assistant Overseer (Mark Bognot), follow confirmed arrangement. Never change room yourself.
+3. Tired & Frustrated Delegate: Listen patiently, speak kindly, reassure that assistance is being sought, inform assigned Keyman. Do not argue or become defensive.
+4. Hotel Reports Discrepancy: Note discrepancy, inform assigned Keyman, wait while records are verified. Do not negotiate with hotel alone or decide which list is right.
+5. Delegate Requests Room Change: Inquire reason respectfully, inform assigned Keyman to verify if approved adjustment is possible. Never promise or contact other hotels yourself.
+6. Urgent Lodging / Safety: Take seriously, get facts, alert assigned Keyman immediately, coordinate with Assistant Overseer (Mark Bognot).
+7. Last-Minute Arrival: Welcome calmly, collect info, notify assigned Keyman to check established process. Do not guarantee lodging.
+8. Confidential Info Request: Politely decline to provide room numbers or hotel assignments. Protect privacy. Refer to assigned Keyman.
 `;
 
     // Local / Offline rule matching fallback dictionary
@@ -1264,44 +1795,120 @@ NETWORLD HOTEL (SPA & CASINO) POLICIES:
                "• **Do Not Share:** Please do NOT send or forward this link, app, or internal guidelines to delegates, hotel personnel, friends, family, or anyone outside the assigned Rooming volunteer team.\n" +
                "• All hotel room assignments, negotiated contract rates, and contacts are strictly confidential.";
       }
-      if (q.includes('reggie') || q.includes('aguinaldo') || q.includes('bognot') || q.includes('keyman') || (q.includes('assistant') && q.includes('overseer'))) {
-        return "**Hotel Leadership & Rooming Contacts (Century Park Hotel & Networld Hotel):**\n\n" +
-               "• **Keyman (Hotel Coordinator):** Reggie Aguinaldo\n" +
-               "• **Assistant Overseer:** Mark Bognot\n" +
-               "• **Rooming Overseer:** Jude Pambid\n\n" +
+      if (q.includes('reggie') || q.includes('aguinaldo') || q.includes('bognot') || q.includes('dindo') || q.includes('ballecer') || q.includes('moses') || q.includes('baswel') || q.includes('keyman') || q.includes('keymen') || (q.includes('assistant') && q.includes('overseer'))) {
+        return "**Hotel Leadership & Rooming Keymen (All 5 Contracted Hotels):**\n\n" +
+               "• **Assistant Overseer (All 5 Hotels):** **Mark Bognot**\n" +
+               "• **Rooming Department Overseer:** Rey Barin\n\n" +
+               "**Assigned Keymen (Hotel Coordinators):**\n" +
+               "1. **Century Park Hotel:** **Reggie Aguinaldo**\n" +
+               "2. **Networld Hotel:** **Reggie Aguinaldo**\n" +
+               "3. **lyf Malate Manila:** **Dindo Ballecer**\n" +
+               "4. **Citadines Benavidez Makati:** **Dindo Ballecer**\n" +
+               "5. **Lime Resort Manila:** **Moses Baswel**\n\n" +
                "**Reporting Flow:**\n" +
-               "General Volunteer → **Keyman (Reggie Aguinaldo)** → **Assistant Overseer (Mark Bognot)** → **Rooming Overseer (Jude Pambid)**\n\n" +
-               "General volunteers stationed at Century Park Hotel and Networld Hotel should direct all front-desk questions, rooming concerns, and coordination matters first to their Keyman, **Reggie Aguinaldo**.";
+               "General Volunteer → **Assigned Keyman** → **Assistant Overseer (Mark Bognot)** → **Rooming Department Overseer (Rey Barin)**\n\n" +
+               "General volunteers stationed at any hotel front desk must direct all questions, room issues, and coordination matters to their assigned Keyman first.";
       }
       if (q.includes('balcony')) {
         return "**Century Park Balcony Policy:**\nOpening balcony doors is strictly prohibited for safety and security. Any attempt to open the balcony door carries a strict fine of **Php 20,000.00 net** per incident (Contract Section IX).";
       }
       if (q.includes('smoking') || q.includes('smoke')) {
-        return "**Smoking Policy:**\nSmoking is strictly prohibited inside the hotel premises (including guestrooms and corridors). At Century Park Hotel, a **Php 10,000.00 net** fee is charged per incident. At Networld Hotel, all blocked rooms are non-smoking.";
+        return "**Smoking Policy:**\nSmoking is strictly prohibited inside the hotel premises (including guestrooms and corridors). At Century Park Hotel, a **Php 10,000.00 net** fee is charged per incident. At Networld Hotel and all contracted properties, all blocked rooms are non-smoking.";
+      }
+      if (q.includes('lime') || q.includes('bayside') || q.includes('seascape')) {
+        return "**Lime Resort Manila (Pasay City) Details:**\n\n" +
+               "• **Assigned Keyman:** Moses Baswel | **Assistant Overseer:** Mark Bognot\n" +
+               "• **Address:** Atang Dela Rama St., Seascape Village, CCP Complex, Pasay City\n" +
+               "• **Contacts:** Jeffrey Camilon (09152819471) / John Herrera | (63) 970 111 1117 / 0967 400 0600\n" +
+               "• **Block Dates:** Oct 25 – Nov 3, 2026 (195 rooms/night). **Cut-off:** Sept 25, 2026.\n" +
+               "• **Contract Rates (nett):**\n" +
+               "  - Standard Twin (No View): **PHP 3,150.00** (30 rms, published PHP 7,000)\n" +
+               "  - Deluxe Twin Bayview: **PHP 3,825.00** (150 rms, published PHP 8,500)\n" +
+               "  - Executive King Bayview: **PHP 5,400.00** (5 rms, published PHP 12,000)\n" +
+               "  - Premier King Suite: **PHP 6,750.00** (10 rms, published PHP 15,000)\n" +
+               "  - Extra adult charge: PHP 2,000.00\n" +
+               "• **Inclusions:** 2 Buffet breakfasts/room night, coffee/water, infinity pool, gym, Wi-Fi, FCFS parking.\n" +
+               "• **Check-in / Check-out:** 3:00 PM / 12:00 NN\n" +
+               "• ⚠️ **STRICT VISITOR RULE:** Visitors allowed until **10:00 PM ONLY!** Non-registered visitors must leave by 10 PM.\n" +
+               "• **Bayside Buffet Rates:** Lunch PHP 1,049 (wkdays) / PHP 1,364 (wkends); Dinner PHP 1,154 (wkdays) / PHP 1,364 (wkends).\n" +
+               "• **Bank:** BDO Acct #010368010708 (Manila Bayfront Resorts Inc). Non-refundable < 1 mo.";
+      }
+      if (q.includes('lyf') || q.includes('social space') || q.includes('connect') || q.includes('wash & hang') || q.includes('helpdesk table')) {
+        return "**lyf Malate Manila Details & Policies:**\n\n" +
+               "• **Assigned Keyman:** Dindo Ballecer | **Assistant Overseer:** Mark Bognot\n" +
+               "• **Address:** Malvar cor. Vasquez St., Malate, Manila | Phone: +632 7793 9593\n" +
+               "• **Contacts:** Angelbert Data (0966 015 6978) / Joycelyn Agsaway\n" +
+               "• **Block Dates:** Oct 25 – Nov 4, 2026 (10 nights, 134 rooms/night: 130 blocked + 4 concession upgrades)\n" +
+               "• **Room Rates:**\n" +
+               "  - One of a Kind (Studio Queen): **Php 3,000.00 nett**\n" +
+               "  - Side by Side (Studio Twin): **Php 3,000.00 nett**\n" +
+               "  - Extra Bed: Php 1,650.00 nett\n" +
+               "• **Inclusions:** Welcome amenities, daily buffet breakfast for 2, Wi-Fi, bathroom amenities.\n" +
+               "• ⭐ **SPECIAL PERK:** Dedicated area in **CONNECT** (coworking) for organizers' helpdesk table!\n" +
+               "• **Signature Social Spaces:** CONNECT (coworking), WASH & HANG (launderette), NOOK (quiet pods), BURN (social gym), BOND (social kitchen), HANG OUT (outdoor terrace).\n" +
+               "• **Check-in / Check-out:** 2:00 PM / 12:00 PM\n" +
+               "• **Children:** 11 & below stay free. Breakfast: 0–5 free, 6–11 Php 225, 12+ Php 450.\n" +
+               "• **Airport Transfers:** Hybrid Altis/Cross Php 2,400; Hybrid Innova Php 3,000; Van Php 3,400 nett/way.\n" +
+               "• **Bank:** BPI Acct #2951002367. Non-refundable payments.";
+      }
+      if (q.includes('citadines') || q.includes('benavidez') || q.includes('water dispenser') || q.includes('table-top')) {
+        return "**Citadines Benavidez Makati Details:**\n\n" +
+               "• **Assigned Keyman:** Dindo Ballecer | **Assistant Overseer:** Mark Bognot\n" +
+               "• **Address:** 110 Benavidez St., Legazpi Village, Makati City | Phone: (632) 7744 9499\n" +
+               "• **Contacts:** Joshua Anthony Samaniego (0920 248 7644) / Jose Ma. G. Montinola\n" +
+               "• **Block Dates:** Oct 25 – Nov 4, 2026 (10 nights, 130 units). **Cut-off:** August 31, 2026.\n" +
+               "• **Contract Rate:** Studio Deluxe Queen: **Php 5,500.00 nett/unit/night** (130 units)\n" +
+               "• **Extra Bed:** PHP 1,650.00 nett with 1 complimentary breakfast.\n" +
+               "• **Group Concession:** 1 comp room per 20 paying rooms (1:20 ratio).\n" +
+               "• ⭐ **SPECIAL IN-ROOM WATER AMENITY:** **2.5 gallons of purified water with table-top dispenser** provided upon arrival in unit!\n" +
+               "• **Check-in / Check-out:** 2:00 PM / 12:00 PM\n" +
+               "• **Parking:** 1 vehicle per unit on first-come first-served basis (7th and 8th floor).\n" +
+               "• **Children:** 11 & below free room stay. Breakfast: 0–3 free; 4+ PHP 250–400 nett.\n" +
+               "• **Cancellation:** 48 hours prior with valid medical/emergency reason.";
+      }
+      if (q.includes('visitor') || q.includes('visitors')) {
+        return "**Visitor Policy Across Contracted Hotels:**\n\n" +
+               "• **Lime Resort Manila:** ⚠️ **Visitors allowed until 10:00 PM ONLY!** Non-registered visitors must vacate before 10 PM. Valid ID required at front desk.\n" +
+               "• **General Rule:** Delegates may entertain visitors in lobby lounges and public social areas. Overstaying visitors or non-registered overnight guests violate hotel fire and safety regulations.";
+      }
+      if (q.includes('cut-off') || q.includes('cutoff') || q.includes('deadline')) {
+        return "**Contracted Hotel Room Block Cut-Off Dates:**\n\n" +
+               "• **Century Park Hotel:** **October 17, 2026** (250 rooms/night)\n" +
+               "• **Networld Hotel:** **September 25, 2026** (73 rooms/night)\n" +
+               "• **Lime Resort Manila:** **September 25, 2026** (195 rooms/night)\n" +
+               "• **Citadines Benavidez Makati:** **August 31, 2026** (130 units)\n\n" +
+               "Unreserved rooms are subject to release by hotel sales after these cut-off dates.";
       }
       if (q.includes('century park') && (q.includes('rate') || q.includes('price') || q.includes('cost') || q.includes('breakfast'))) {
-        return "**Century Park Hotel Rates (Nett):**\n• **Superior Room:** Php 4,200.00 (Single/Twin) | Php 5,500.00 (Triple)\n• **Deluxe Room:** Php 5,200.00 (Single/Twin) | Php 6,500.00 (Triple)\n• Additional adult: Php 1,300.00\n• **Inclusions:** Buffet breakfast, daily replenished mineral water, coffee/tea facilities.\n• **Check-in:** 2:00 PM | **Check-out:** 12:00 NN.\n• **Assigned Keyman:** Reggie Aguinaldo | **Assistant Overseer:** Mark Bognot";
+        return "**Century Park Hotel Rates (Nett):**\n• **Superior Room:** Php 4,200.00 (Single/Twin) | Php 5,500.00 (Triple) - 200 rooms blocked\n• **Deluxe Room:** Php 5,200.00 (Single/Twin) | Php 6,500.00 (Triple) - 50 rooms blocked\n• Additional adult: Php 1,300.00\n• **Inclusions:** Buffet breakfast, daily replenished mineral water, coffee/tea facilities.\n• **Block Cut-Off:** October 17, 2026 (250 rooms/night Oct 25 – Nov 3).\n• **Check-in:** 2:00 PM | **Check-out:** 12:00 NN.\n• **Assigned Keyman:** Reggie Aguinaldo | **Assistant Overseer:** Mark Bognot";
       }
       if (q.includes('networld') && (q.includes('rate') || q.includes('shuttle') || q.includes('smx') || q.includes('price'))) {
-        return "**Networld Hotel Details & Rates (Net):**\n• **Standard:** Php 2,300.00 (1 person)\n• **Deluxe:** Php 2,800.00 (Queen, 2 persons)\n• **Executive:** Php 3,600.00 (2 Twin Beds, 2 persons)\n• **Super Deluxe:** Php 3,700.00 (King, 2 persons)\n• **Royal:** Php 3,800.00 (2 Twin Beds, 2 persons)\n• Extra bed: Php 800.00 with buffet breakfast.\n• **Shuttle:** Free daily drop-off to SMX Convention Center / World Trade Center (prior reservation required).\n• **Check-in:** 3:00 PM | **Check-out:** 12:00 NN (Housekeeping cleaning until 11:00 AM).\n• **Assigned Keyman:** Reggie Aguinaldo | **Assistant Overseer:** Mark Bognot";
+        return "**Networld Hotel Details & Rates (Net):**\n• **Standard:** Php 2,300.00 (1 person) - 13 rooms blocked\n• **Deluxe:** Php 2,800.00 (Queen, 2 persons) - 28 rooms blocked\n• **Executive:** Php 3,600.00 (2 Twin Beds, 2 persons) - 14 rooms blocked\n• **Super Deluxe:** Php 3,700.00 (King, 2 persons) - 8 rooms blocked\n• **Royal:** Php 3,800.00 (2 Twin Beds, 2 persons) - 6 rooms blocked\n• Extra bed: Php 800.00 with buffet breakfast.\n• **Block Cut-Off:** September 25, 2026 (73 rooms/night Oct 25 – Nov 4).\n• **Shuttle:** Free daily drop-off to SMX Convention Center / World Trade Center (prior reservation required).\n• **Check-in:** 3:00 PM | **Check-out:** 12:00 NN (Housekeeping cleaning until 11:00 AM).\n• **Assigned Keyman:** Reggie Aguinaldo | **Assistant Overseer:** Mark Bognot";
       }
       if (q.includes('missing') || (q.includes('cannot find') && q.includes('reservation'))) {
-        return "**Scenario 1: Missing Reservation Protocol:**\n1. **Listen carefully** to the delegate and remain calm and reassuring.\n2. Gather reservation details (guest name, confirmation number, arrival date).\n3. **Inform your Keyman (Reggie Aguinaldo)** immediately.\n4. **What NOT to do:** Do NOT promise a room immediately, do NOT make a new booking independently, and do NOT argue with the hotel front office.";
+        return "**Scenario 1: Missing Reservation Protocol:**\n1. **Listen carefully** to the delegate and remain calm and reassuring.\n2. Gather reservation details (guest name, confirmation number, arrival date).\n3. **Inform your assigned Keyman** (Reggie Aguinaldo / Dindo Ballecer / Moses Baswel) immediately.\n4. **What NOT to do:** Do NOT promise a room immediately, do NOT make a new booking independently, and do NOT argue with the hotel front office.";
       }
       if (q.includes('change') && (q.includes('room') || q.includes('bed') || q.includes('upgrade'))) {
-        return "**Room Change Request (Scenario 5 & Guidelines):**\n• Rooming Volunteers must **NEVER independently change room assignments or bed setups**.\n• Respectfully ask the delegate for their reason, note the details, and **refer the matter to your Keyman (Reggie Aguinaldo)**.\n• The Keyman will check with Assistant Overseer **Mark Bognot** and the hotel front office if an approved adjustment is possible.";
+        return "**Room Change Request (Scenario 5 & Guidelines):**\n• Rooming Volunteers must **NEVER independently change room assignments or bed setups**.\n• Respectfully ask the delegate for their reason, note the details, and **refer the matter to your assigned Keyman**.\n• The Keyman will check with Assistant Overseer **Mark Bognot** and hotel management if an approved adjustment is possible.";
       }
       if (q.includes('confidential') || q.includes('privacy') || q.includes('number') || q.includes('who is staying')) {
-        return "**Confidentiality Safeguard (Scenario 8):**\n• Politely decline to share a delegate's room number, hotel assignment, or personal contact info.\n• Never show room lists to unauthorized persons.\n• Refer all inquiries to Keyman **Reggie Aguinaldo** to protect delegate privacy and security.";
+        return "**Confidentiality Safeguard (Scenario 8):**\n• Politely decline to share a delegate's room number, hotel assignment, or personal contact info.\n• Never show room lists to unauthorized persons.\n• Refer all inquiries to your assigned Keyman to protect delegate privacy and security.";
       }
       if (q.includes('overseer') || q.includes('chain') || q.includes('report') || q.includes('who should i') || q.includes('command')) {
-        return "**Line of Communication & Oversight:**\n\n**General Volunteer** → **Keyman (Hotel Coordinator)** → **Assistant Overseer** → **Rooming Overseer**\n\n• **Century Park Hotel & Networld Hotel Assignments:**\n  - **Keyman (Hotel Coordinator):** Reggie Aguinaldo\n  - **Assistant Overseer:** Mark Bognot\n• Always report your concerns first to your Keyman (**Reggie Aguinaldo**).\n• Keyman communicates directly with Assistant Overseer (**Mark Bognot**).\n• Matters requiring higher attention are escalated to Rooming Overseer (Jude Pambid).";
+        return "**Line of Communication & Oversight (All 5 Contracted Hotels):**\n\n" +
+               "**General Volunteer** → **Keyman (Hotel Coordinator)** → **Assistant Overseer (Mark Bognot)** → **Rooming Department Overseer (Rey Barin)**\n\n" +
+               "• **Keymen Assignments:**\n" +
+               "  - **Century Park Hotel & Networld Hotel:** **Reggie Aguinaldo**\n" +
+               "  - **lyf Malate Manila & Citadines Benavidez Makati:** **Dindo Ballecer**\n" +
+               "  - **Lime Resort Manila:** **Moses Baswel**\n" +
+               "• **Assistant Overseer for all 5 Hotels:** **Mark Bognot**\n" +
+               "• Always report concerns first to your assigned Keyman. Keymen communicate directly with Assistant Overseer Mark Bognot.";
       }
       if (q.includes('tired') || q.includes('frustrated') || q.includes('upset')) {
-        return "**Tired & Frustrated Delegate (Scenario 3):**\n• Listen patiently and speak with Christian kindness and empathy (Colossians 3:12).\n• Acknowledge their concern and reassure them that assistance is being coordinated.\n• Inform your Keyman (**Reggie Aguinaldo**) promptly. Never argue or make unverified promises.";
+        return "**Tired & Frustrated Delegate (Scenario 3):**\n• Listen patiently and speak with Christian kindness and empathy (Colossians 3:12).\n• Acknowledge their concern and reassure them that assistance is being coordinated.\n• Inform your assigned Keyman promptly. Never argue or make unverified promises.";
       }
       if (q.includes('early check') || q.includes('late check')) {
-        return "**Early Check-in / Late Checkout Policies:**\n• Volunteers must **never promise** early check-in or late checkout.\n• **Century Park Hotel:** Check-in 2:00 PM, Check-out 12:00 NN. Early check-in before 12:00 NN is charged preceding day. Late check-out after 4:00 PM is charged whole additional day.\n• **Networld Hotel:** Check-in 3:00 PM, Check-out 12:00 NN. 12 NN-6 PM is half-day charge; after 6 PM is whole day charge.\n• Always refer delegate requests directly to the hotel front desk and your Keyman (**Reggie Aguinaldo**).";
+        return "**Early Check-in / Late Checkout Policies:**\n• Volunteers must **never promise** early check-in or late checkout.\n• **Century Park Hotel:** Check-in 2:00 PM, Check-out 12:00 NN. Early in before 12 NN = preceding day charge. Late out after 4 PM = full day.\n• **Networld Hotel:** Check-in 3:00 PM, Check-out 12:00 NN. 12 NN-6 PM is half-day charge; after 6 PM is full day charge.\n• **Lime Resort:** Check-in 3:00 PM, Check-out 12:00 NN.\n• **lyf Malate:** Check-in 2:00 PM, Check-out 12:00 PM.\n• **Citadines Benavidez:** Check-in 2:00 PM, Check-out 12:00 PM.\n• Always refer delegate requests directly to the hotel front desk and your assigned Keyman.";
       }
       return null;
     }
@@ -1336,22 +1943,25 @@ NETWORLD HOTEL (SPA & CASINO) POLICIES:
     }
 
     function showHotelCard(hotelKey) {
-      const centuryCard = document.getElementById('card-century');
-      const networldCard = document.getElementById('card-networld');
-      const btnCentury = document.getElementById('btn-show-century');
-      const btnNetworld = document.getElementById('btn-show-networld');
-
-      if (hotelKey === 'century') {
-        centuryCard.classList.remove('hidden');
-        networldCard.classList.add('hidden');
-        btnCentury.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white shadow';
-        btnNetworld.className = 'px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200';
-      } else {
-        centuryCard.classList.add('hidden');
-        networldCard.classList.remove('hidden');
-        btnNetworld.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow';
-        btnCentury.className = 'px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200';
-      }
+      const hotels = ['century', 'networld', 'lime', 'lyf', 'citadines'];
+      hotels.forEach(h => {
+        const card = document.getElementById('card-' + h);
+        const btn = document.getElementById('btn-show-' + h);
+        if (card) {
+          if (h === hotelKey) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        }
+        if (btn) {
+          if (h === hotelKey) {
+            btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white shadow';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200';
+          }
+        }
+      });
     }
 
     // Quick Prompt Helper
@@ -1407,8 +2017,8 @@ NETWORLD HOTEL (SPA & CASINO) POLICIES:
         } else {
           appendAssistantMessage(
             `**Rooming Volunteer Protocol:**\n\n` +
-            `• **First Step:** Please communicate directly with your **Keyman (Reggie Aguinaldo)** for direction on this situation.\n` +
-            `• **Chain of Oversight:** General Volunteer → Keyman (**Reggie Aguinaldo**) → Assistant Overseer (**Mark Bognot**) → Rooming Overseer (Jude Pambid).\n` +
+            `• **First Step:** Please communicate directly with your assigned **Keyman** (**Reggie Aguinaldo** for Century Park & Networld, **Dindo Ballecer** for lyf Malate & Citadines Benavidez, or **Moses Baswel** for Lime Resort) for direction on this situation.\n` +
+            `• **Chain of Oversight:** General Volunteer → Assigned Keyman → Rooming Department Assistant Overseer (**Mark Bognot**) → Rooming Department Overseer (**Rey Barin**).\n` +
             `• **Cardinal Rule:** General volunteers must not make independent adjustments to rooms, bookings, or hotel arrangements.\n` +
             `• You can also refer to the **8 Scenarios**, **Hotel Policies**, and **Key Safeguards** tabs above for complete official guidance.`
           );
@@ -1483,9 +2093,9 @@ ${NOTEBOOK_KNOWLEDGE}
 
 GUIDANCE RULES:
 1. Always maintain a warm, hospitable, respectful, and reassuring tone.
-2. Remind volunteers of the proper chain of command: General Volunteer → Keyman (Hotel Coordinator) → Assistant Overseer → Rooming Overseer. Always format using clean unicode arrows (→) or clear steps. Never use LaTeX math symbols or syntax like $\\rightarrow$.
+2. Remind volunteers of the proper chain of command: General Volunteer → Keyman (Hotel Coordinator) → Rooming Department Assistant Overseer → Rooming Department Overseer. Always format using clean unicode arrows (→) or clear steps. Never use LaTeX math symbols or syntax like $\\rightarrow$.
 3. Firmly remind volunteers NEVER to make independent promises, never reassign rooms alone, never promise early/late check-in, and never share confidential delegate room information.
-4. When asked about Century Park Hotel or Networld Hotel, cite exact rates, room categories, check-in times, breakfast details, penalties (e.g. Century Park Php 20k balcony fine), and assigned leadership: Keyman: Reggie Aguinaldo; Assistant Overseer: Mark Bognot.
+4. When asked about any of the 5 contracted hotels (Century Park Hotel, Networld Hotel, Lime Resort Manila, lyf Malate Manila, Citadines Benavidez Makati), cite exact contracted rates, room categories, cut-off dates, check-in/out times, breakfast details, key amenities (e.g. lyf CONNECT helpdesk table, Citadines 2.5-gal water dispenser, Networld SMX shuttle), strict rules (e.g. Century Park Php 20k balcony fine, Lime Resort 10 PM visitor curfew), and leadership: Assistant Overseer for all 5 hotels is Mark Bognot; Keyman (Hotel Coordinator) assignments are Reggie Aguinaldo (Century Park Hotel & Networld Hotel), Dindo Ballecer (lyf Malate Manila & Citadines Benavidez Makati), and Moses Baswel (Lime Resort Manila).
 5. Keep explanations direct, practical, and structured with bullet points where appropriate.
 6. Strictly emphasize that this app can be used ONLY for appointed Local Rooming volunteers and CANNOT be shared with anyone (including delegates, other volunteers, or hotel staff).
 `;

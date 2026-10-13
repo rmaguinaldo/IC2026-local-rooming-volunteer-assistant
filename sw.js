@@ -1,5 +1,5 @@
 // IC 2026 Rooming Volunteer Assistant - Service Worker
-const CACHE_NAME = 'ic2026-rooming-pwa-v1';
+const CACHE_NAME = 'ic2026-rooming-pwa-v3';
 
 // Essential Core Shell Assets to pre-cache on install
 const PRECACHE_ASSETS = [

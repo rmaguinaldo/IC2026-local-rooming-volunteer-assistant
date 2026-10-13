@@ -64,7 +64,7 @@
     {
       "name": "Hotel Contracts",
       "short_name": "Hotels",
-      "description": "Century Park & Networld hotel rates and policies",
+      "description": "Rates, rules, and policies for 5 contracted hotels",
       "url": "./index.html?tab=hotels",
       "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
     },
