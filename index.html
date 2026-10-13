@@ -156,7 +156,7 @@
           <i class="fa-solid fa-triangle-exclamation"></i> 8 Scenarios Guide
         </button>
         <button onclick="switchTab('hotels')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
-          <i class="fa-solid fa-building"></i> Hotel Contracts (Century Park & Networld)
+          <i class="fa-solid fa-building"></i> Hotel Policies (Century Park & Networld)
         </button>
         <button onclick="switchTab('org')" class="px-3 py-1.5 rounded text-xs font-medium text-slate-300 hover:bg-brand-800 w-full text-left flex items-center gap-2">
           <i class="fa-solid fa-sitemap"></i> Organization & Contacts
@@ -207,7 +207,7 @@
                 Ready
               </span>
             </h2>
-            <p class="text-xs text-slate-500">Trained on IC 2026 Rooming Handbook, Century Park & Networld Contracts</p>
+            <p class="text-xs text-slate-500">Trained on IC 2026 Rooming Handbook, Century Park & Networld Policies</p>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -249,7 +249,7 @@
               <button onclick="quickPrompt('Can I change a delegate\'s room assignment if they are unhappy with the twin bed?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
                 ⚠️ Can I change their room?
               </button>
-              <button onclick="quickPrompt('What are Networld Hotel\'s contracted room rates, shuttle, and check-in/check-out times?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+              <button onclick="quickPrompt('What are Networld Hotel\'s room rates, shuttle, and check-in/check-out times?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
                 🚗 Networld Hotel Details & Shuttle
               </button>
               <button onclick="quickPrompt('Someone is asking for a delegate\'s hotel room number. May I give it?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
@@ -546,7 +546,7 @@
       </div>
     </section>
 
-    <!-- ================= TAB 3: HOTEL CONTRACTS ================= -->
+    <!-- ================= TAB 3: HOTEL POLICIES ================= -->
     <section id="tab-hotels" class="tab-content hidden flex-1 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-y-auto p-4 md:p-6 space-y-6">
       <div class="border-b border-slate-200 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -956,7 +956,7 @@
           </span>
         </div>
         <p class="text-xs text-amber-900 leading-relaxed">
-          This application is intended <strong>strictly and exclusively for appointed IC 2026 Local Rooming Volunteers</strong>. The internal protocols, contract rates, and lines of reporting contained here are confidential.
+          This application is intended <strong>strictly and exclusively for appointed IC 2026 Local Rooming Volunteers</strong>. The internal protocols, room rates, and lines of reporting contained here are confidential.
         </p>
         <div class="bg-white/90 p-2.5 rounded-lg border border-amber-200 text-xs font-bold text-rose-700 flex items-center gap-2">
           <i class="fa-solid fa-ban text-rose-600 text-sm flex-shrink-0"></i>
@@ -1078,7 +1078,7 @@
           <i class="fa-solid fa-graduation-cap"></i> Readiness Assessment
         </div>
         <h2 class="text-xl font-bold text-slate-800">Rooming Volunteer Knowledge Check</h2>
-        <p class="text-sm text-slate-600">Test your mastery of front-desk protocols, oversight channels, and hotel contracts.</p>
+        <p class="text-sm text-slate-600">Test your mastery of front-desk protocols, oversight channels, and hotel policies.</p>
       </div>
 
       <div id="quizContainer" class="space-y-4">
@@ -1161,12 +1161,12 @@
 
   <!-- ================= JAVASCRIPT LOGIC & KNOWLEDGE BASE ================= -->
   <script>
-    // Knowledge Base context derived directly from uploaded notebook slides & hotel contracts
+    // Knowledge Base context derived directly from uploaded notebook slides & hotel policies
     const NOTEBOOK_KNOWLEDGE = `
 YOU ARE THE IC 2026 ROOMING VOLUNTEER ASSISTANT.
 YOUR ROLE:
 Assist Rooming volunteers during the 2026 International Convention of Jehovah's Witnesses in Pasay City / Metro Manila, Philippines.
-All answers must strictly align with the IC 2026 Rooming Volunteer Training Notebook and official Hotel Contracts (Century Park Hotel & Networld Hotel).
+All answers must strictly align with the IC 2026 Rooming Volunteer Training Notebook and official Hotel Policies (Century Park Hotel & Networld Hotel).
 
 APP CONFIDENTIALITY & USAGE DISCLAIMER:
 - This application can be used ONLY for authorized Local Rooming volunteers.
@@ -1202,7 +1202,7 @@ HOTEL ASSIGNMENTS & LEADERSHIP (CENTURY PARK & NETWORLD):
   * Keyman (Hotel Coordinator): Reggie Aguinaldo
   * Assistant Overseer: Mark Bognot
 
-CENTURY PARK HOTEL CONTRACT:
+CENTURY PARK HOTEL POLICIES:
 - Rooming Leadership:
   * Keyman (Hotel Coordinator): Reggie Aguinaldo
   * Assistant Overseer: Mark Bognot
@@ -1222,7 +1222,7 @@ CENTURY PARK HOTEL CONTRACT:
   * Balcony doors: Strictly locked for safety. Attempting to open = Php 20,000.00 net fine per incident!
   * Children: 0-12 yrs stay free sharing beds with parents. Free parking: Yes. Pool: Yes.
 
-NETWORLD HOTEL (SPA & CASINO) CONTRACT:
+NETWORLD HOTEL (SPA & CASINO) POLICIES:
 - Rooming Leadership:
   * Keyman (Hotel Coordinator): Reggie Aguinaldo
   * Assistant Overseer: Mark Bognot
@@ -1410,7 +1410,7 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
             `• **First Step:** Please communicate directly with your **Keyman (Reggie Aguinaldo)** for direction on this situation.\n` +
             `• **Chain of Oversight:** General Volunteer → Keyman (**Reggie Aguinaldo**) → Assistant Overseer (**Mark Bognot**) → Rooming Overseer (Jude Pambid).\n` +
             `• **Cardinal Rule:** General volunteers must not make independent adjustments to rooms, bookings, or hotel arrangements.\n` +
-            `• You can also refer to the **8 Scenarios**, **Hotel Contracts**, and **Key Safeguards** tabs above for complete official guidance.`
+            `• You can also refer to the **8 Scenarios**, **Hotel Policies**, and **Key Safeguards** tabs above for complete official guidance.`
           );
         }
       }
@@ -1477,7 +1477,7 @@ NETWORLD HOTEL (SPA & CASINO) CONTRACT:
       
       const systemInstruction = `
 You are the official IC 2026 Rooming Volunteer AI Assistant for the 2026 International Convention of Jehovah's Witnesses in Manila, Philippines.
-Use the following reference knowledge from the volunteer training notebook and hotel contracts to answer accurately, warmly, and politely:
+Use the following reference knowledge from the volunteer training notebook and hotel policies to answer accurately, warmly, and politely:
 
 ${NOTEBOOK_KNOWLEDGE}
 
