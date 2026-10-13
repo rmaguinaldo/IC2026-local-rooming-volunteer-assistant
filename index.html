@@ -4,7 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IC 2026 - Rooming Volunteer Smart Assistant</title>
-  <!-- Inline Favicon to eliminate favicon.ico 404 console error -->
+  <!-- Progressive Web App (PWA) Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#172554">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Rooming Desk">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <!-- Inline Fallback Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231e3a8a'/><text y='65' font-size='55' x='20' fill='white'>🏨</text></svg>">
   <!-- Suppress dev CDN console warning -->
   <script>
@@ -109,8 +119,20 @@
           </button>
         </nav>
 
-        <!-- Right Side Quick Info & Mobile Menu -->
+        <!-- Right Side Quick Info, Install & Mobile Menu -->
         <div class="flex items-center gap-2">
+          <!-- PWA Install Button (Desktop/Tablet) -->
+          <button id="btnInstallApp" onclick="triggerPwaInstall()" class="hidden px-2.5 py-1.5 rounded-lg text-xs font-bold bg-amber-400 hover:bg-amber-300 text-slate-950 items-center gap-1.5 shadow transition" title="Install App to Home Screen">
+            <i class="fa-solid fa-download"></i>
+            <span class="hidden sm:inline">Install App</span>
+          </button>
+
+          <!-- Online/Offline Connection Badge -->
+          <div id="connectionStatusBadge" class="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-950/80 text-emerald-300 border border-emerald-700/50">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span id="connectionStatusText">Online</span>
+          </div>
+
           <div class="hidden lg:flex flex-col text-right text-xs">
             <span class="font-bold text-amber-300 flex items-center justify-end gap-1"><i class="fa-solid fa-lock text-[11px]"></i> Local Rooming Volunteers Only</span>
             <span class="text-slate-300 text-[11px]">Confidential • Cannot be shared</span>
@@ -123,6 +145,10 @@
 
       <!-- Mobile Nav Drawer -->
       <div id="mobileMenu" class="hidden md:hidden pb-3 pt-1 border-t border-brand-800 flex flex-wrap gap-1">
+        <!-- Mobile Install Button -->
+        <button id="btnInstallAppMobile" onclick="triggerPwaInstall()" class="hidden px-3 py-1.5 rounded text-xs font-bold bg-amber-400 text-slate-950 w-full text-left items-center gap-2 mb-1">
+          <i class="fa-solid fa-download"></i> Install App on Home Screen
+        </button>
         <button onclick="switchTab('chat')" class="px-3 py-1.5 rounded text-xs font-medium bg-brand-800 text-white w-full text-left flex items-center gap-2">
           <i class="fa-solid fa-comments"></i> AI Ask Desk
         </button>
@@ -1581,6 +1607,115 @@ GUIDANCE RULES:
         `;
       }
     }
+
+    // ================= PWA & SERVICE WORKER LOGIC =================
+    // 1. Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then((registration) => {
+            console.log('[PWA] Service Worker registered successfully with scope:', registration.scope);
+
+            // Listen for service worker updates
+            registration.onupdatefound = () => {
+              const installingWorker = registration.installing;
+              if (installingWorker) {
+                installingWorker.onstatechange = () => {
+                  if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    console.log('[PWA] New version installed and ready.');
+                  }
+                };
+              }
+            };
+          })
+          .catch((error) => {
+            console.warn('[PWA] Service Worker registration failed:', error);
+          });
+      });
+    }
+
+    // 2. Install Prompt Handling
+    let deferredInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+
+      // Show Desktop/Tablet Install Button
+      const btn = document.getElementById('btnInstallApp');
+      if (btn) {
+        btn.classList.remove('hidden');
+        btn.classList.add('flex');
+      }
+
+      // Show Mobile Drawer Install Button
+      const btnMobile = document.getElementById('btnInstallAppMobile');
+      if (btnMobile) {
+        btnMobile.classList.remove('hidden');
+        btnMobile.classList.add('flex');
+      }
+    });
+
+    async function triggerPwaInstall() {
+      if (!deferredInstallPrompt) {
+        // Helpful installation guidance for iOS Safari or browsers where automatic prompt is unavailable
+        alert(
+          "How to install this app on your device:\n\n" +
+          "• iOS / iPhone / iPad (Safari): Tap the Share button at the bottom, then select 'Add to Home Screen'.\n" +
+          "• Android / Chrome: Tap the top-right menu (⋮) and select 'Install app' or 'Add to Home screen'.\n" +
+          "• PC / Mac (Edge / Chrome): Click the Install icon in the browser address bar."
+        );
+        return;
+      }
+
+      deferredInstallPrompt.prompt();
+      const { outcome } = await deferredInstallPrompt.userChoice;
+      console.log(`[PWA] Install prompt outcome: ${outcome}`);
+      deferredInstallPrompt = null;
+
+      const btn = document.getElementById('btnInstallApp');
+      if (btn) btn.classList.add('hidden');
+      const btnMobile = document.getElementById('btnInstallAppMobile');
+      if (btnMobile) btnMobile.classList.add('hidden');
+    }
+
+    window.addEventListener('appinstalled', () => {
+      console.log('[PWA] App successfully installed on device.');
+      deferredInstallPrompt = null;
+      const btn = document.getElementById('btnInstallApp');
+      if (btn) btn.classList.add('hidden');
+      const btnMobile = document.getElementById('btnInstallAppMobile');
+      if (btnMobile) btnMobile.classList.add('hidden');
+    });
+
+    // 3. Online / Offline Network Monitoring
+    function updateOnlineStatus() {
+      const isOnline = navigator.onLine;
+      const badge = document.getElementById('connectionStatusBadge');
+      const text = document.getElementById('connectionStatusText');
+      if (!badge || !text) return;
+
+      if (isOnline) {
+        badge.className = 'hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-950/80 text-emerald-300 border border-emerald-700/50';
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span id="connectionStatusText">Online</span>';
+      } else {
+        badge.className = 'flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-950 text-amber-300 border border-amber-600/60 shadow-xs';
+        badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span><span id="connectionStatusText">Offline Mode (Handbook Active)</span>';
+      }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    window.addEventListener('DOMContentLoaded', updateOnlineStatus);
+
+    // 4. Handle Shortcut & Deep Link Tab Routing (?tab=hotels or #hotels)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get('tab') || window.location.hash.replace('#', '');
+      const validTabs = ['chat', 'scenarios', 'hotels', 'org', 'rules', 'quiz'];
+      if (tabParam && validTabs.includes(tabParam)) {
+        switchTab(tabParam);
+      }
+    });
   </script>
 </body>
 </html>

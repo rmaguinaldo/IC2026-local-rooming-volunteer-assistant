@@ -1,0 +1,80 @@
+{
+  "id": "ic2026-rooming-assistant",
+  "name": "IC 2026 Rooming Volunteer Assistant",
+  "short_name": "Rooming Desk",
+  "description": "Official offline-ready guide, scenarios, hotel contracts, and AI desk for IC 2026 Local Rooming volunteers.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0f172a",
+  "theme_color": "#172554",
+  "lang": "en",
+  "categories": [
+    "productivity",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "AI Ask Desk",
+      "short_name": "AI Desk",
+      "description": "Ask questions about front-desk protocols and rates",
+      "url": "./index.html?tab=chat",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "8 Scenarios Guide",
+      "short_name": "Scenarios",
+      "description": "Step-by-step guidance for front desk situations",
+      "url": "./index.html?tab=scenarios",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Hotel Contracts",
+      "short_name": "Hotels",
+      "description": "Century Park & Networld hotel rates and policies",
+      "url": "./index.html?tab=hotels",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Organization & Keymen",
+      "short_name": "Leadership",
+      "description": "Chain of command and hotel overseers",
+      "url": "./index.html?tab=org",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
+
