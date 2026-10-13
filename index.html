@@ -267,6 +267,9 @@
               <button onclick="quickPrompt('Who are the Keymen and Assistant Overseer for our 5 contracted hotels?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
                 👤 Hotel Keymen & Overseer
               </button>
+              <button onclick="quickPrompt('What is the policy for early check-in or late checkout at our hotels?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+                ⏰ Early / Late Checkout Rules
+              </button>
             </div>
           </div>
         </div>
@@ -1972,6 +1975,43 @@ HOTEL ASSIGNMENTS & LEADERSHIP:
       handleChatSubmit();
     }
 
+    function getFaqChipsHtml() {
+      return `
+        <div class="flex flex-wrap gap-1.5">
+          <button onclick="quickPrompt('A delegate says the hotel cannot find their reservation. What should I do?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            🔍 Missing reservation
+          </button>
+          <button onclick="quickPrompt('What are the JW room rates and breakfast inclusion for Century Park Hotel?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            🏨 Century Park Rates
+          </button>
+          <button onclick="quickPrompt('What are Networld Hotel\\'s room rates, shuttle, and check-in/check-out times?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            🚗 Networld Rates & Shuttle
+          </button>
+          <button onclick="quickPrompt('What are the room rates, buffet inclusions, and 10 PM visitor policy for Lime Resort Manila?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            🌊 Lime Resort Rates & 10 PM Visitor Rule
+          </button>
+          <button onclick="quickPrompt('What are lyf Malate Manila rates, social spaces, and organizers helpdesk table?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            🏢 lyf Malate & Helpdesk Desk
+          </button>
+          <button onclick="quickPrompt('What are Citadines Benavidez Makati rates, water dispenser amenity, and parking?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            🏙️ Citadines Benavidez & Water Dispenser
+          </button>
+          <button onclick="quickPrompt('Can I change a delegate\\'s room assignment if they are unhappy with the twin bed?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            ⚠️ Can I change their room?
+          </button>
+          <button onclick="quickPrompt('Someone is asking for a delegate\\'s hotel room number. May I give it?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            🔒 Privacy & Room Inquiry
+          </button>
+          <button onclick="quickPrompt('Who are the Keymen and Assistant Overseer for our 5 contracted hotels?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            👤 Hotel Keymen & Overseer
+          </button>
+          <button onclick="quickPrompt('What is the policy for early check-in or late checkout at our hotels?')" class="text-xs bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 text-blue-700 px-2.5 py-1.5 rounded-lg text-left transition shadow-2xs">
+            ⏰ Early / Late Checkout Rules
+          </button>
+        </div>
+      `;
+    }
+
     function clearChat() {
       const messages = document.getElementById('chatMessages');
       messages.innerHTML = `
@@ -1980,15 +2020,26 @@ HOTEL ASSIGNMENTS & LEADERSHIP:
             IC
           </div>
           <div class="bg-slate-100 text-slate-800 chat-bubble-assistant p-4 shadow-sm border border-slate-200">
-            <p class="font-semibold text-slate-900 mb-1">Chat history refreshed.</p>
-            <p class="text-slate-700 leading-relaxed text-xs mb-2">How can I assist you with your Rooming desk assignment right now?</p>
-            <div class="p-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-950 text-[11px] flex items-center gap-1.5 font-medium">
-              <i class="fa-solid fa-lock text-amber-700"></i>
+            <p class="font-semibold text-slate-900 mb-1 flex items-center gap-1.5">
+              <span>Chat history refreshed.</span>
+              <span class="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-medium">Ready</span>
+            </p>
+            <p class="text-slate-700 leading-relaxed text-xs mb-3">
+              How can I assist you with your Rooming desk assignment right now? You can type your question below or click any of the frequently asked questions:
+            </p>
+            <div class="mb-3 p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-950 text-[11px] flex items-center gap-1.5 font-medium">
+              <i class="fa-solid fa-lock text-amber-700 flex-shrink-0"></i>
               <span>Confidential: This app can be used only for Local Rooming volunteers and cannot be shared with anyone.</span>
             </div>
+            <div class="text-xs font-semibold text-slate-600 mb-2 flex items-center gap-1">
+              <i class="fa-regular fa-circle-question text-blue-600"></i>
+              <span>Frequently Asked by Volunteers:</span>
+            </div>
+            ${getFaqChipsHtml()}
           </div>
         </div>
       `;
+      messages.scrollTop = 0;
     }
 
     // Chat handling and Assistant Processing
